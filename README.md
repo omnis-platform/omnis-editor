@@ -1,2 +1,2 @@
-# omnis-editor
+# Omnis editor
 WYSIWYG editor

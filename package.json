@@ -5,5 +5,7 @@
   "main": "index.js",
   "author": "igorbezsmertnyi <bezsmertnyi.igor@gmail.com>",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
 }
