@@ -1,0 +1,9 @@
+{
+  "name": "omnis-editor",
+  "version": "1.0.0",
+  "description": "wysiwyg editor",
+  "main": "index.js",
+  "author": "igorbezsmertnyi <bezsmertnyi.igor@gmail.com>",
+  "license": "MIT",
+  "dependencies": {}
+}

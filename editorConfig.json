@@ -1,0 +1,113 @@
+{
+  "controls": [
+    {
+      "name": "bold",
+      "style": "fontWeight",
+      "value": "bold",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "italic",
+      "style": "fontStyle",
+      "value": "italic",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Decoration",
+      "style": "textDecoration",
+      "type": "select",
+      "icon": "",
+      "options": [
+        "none",
+        "overline",
+        "underline overline",
+        "underline",
+        "line-through"
+      ]
+    },
+    {
+      "name": "font",
+      "style": "fontFamily",
+      "type": "select",
+      "icon": "",
+      "options": [
+        "Arial",
+        "Arial Black",
+        "Courier New",
+        "Times New Roman",
+        "Comic Sans MS",
+        "Georgia",
+        "Impact",
+        "Lucida Console",
+        "Tahoma"
+      ]
+    },
+    {
+      "name": "size",
+      "style": "fontSize",
+      "type": "select",
+      "icon": "",
+      "options": [
+        6, 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96
+      ]
+    },
+    {
+      "name": "Aligin left",
+      "style": "textAlign",
+      "value": "left",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Aligin center",
+      "style": "textAlign",
+      "value": "center",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Aligin right",
+      "style": "textAlign",
+      "value": "right",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Aligin justify",
+      "style": "textAlign",
+      "value": "justify",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Uppercase",
+      "style": "textTransform",
+      "value": "uppercase",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Lowercase",
+      "style": "textTransform",
+      "value": "lowercase",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Decries indent",
+      "style": "padding",
+      "value": -20,
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Increase indent",
+      "style": "padding",
+      "value": 20,
+      "type": "button",
+      "icon": ""
+    }
+  ]
+}
