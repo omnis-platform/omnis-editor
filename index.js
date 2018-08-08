@@ -18,7 +18,9 @@ export class OmnisEditor {
     this.selectionStart = 0
     this.selectionEnd = 0
 
-    this.html = ''
+    this.htmlMode = false
+
+    this.innerHTML = ''
     this.textStyles = ''
 
     if (props.conf) {
@@ -34,6 +36,7 @@ export class OmnisEditor {
     this.wparContent()
     this.insertComponents()
     this.inserControles()
+    this.insertShowHtmlButton()
     this.addSelectionListener()
     this.addCtrlListener()
   }
@@ -45,7 +48,7 @@ export class OmnisEditor {
 
     this.area.contentEditable = true
     this.area.className = 'omnis-editor-area om-s__a'
-    this.area.appendChild(this.html)
+    this.area.appendChild(this.innerHTML)
 
     this.label.className = 'omnis-editor-label om-s__l'
     this.label.innerHTML = this.labelText
@@ -85,6 +88,16 @@ export class OmnisEditor {
     })
   }
 
+  insertShowHtmlButton() {
+    const button = document.createElement('button')
+    button.id = 'ctrl_showHtml'
+    button.className = 'om-s__c__ctrl-item'
+    button.innerHTML = 'show html'
+    button.dataset.ctrlShowHtml = true
+
+    this.controls.appendChild(button)
+  }
+
   get selectionNodeNames() {
     let a = this.selection.focusNode.parentNode
     let els = []
@@ -115,10 +128,14 @@ export class OmnisEditor {
     return a.closest('p')
   }
 
+  get html() {
+    return this.area.innerHTML
+  }
+
   setSelectionStyles(style, value) {
     const tmpStyles = {}
     const node = this.selectionSpanNode
-    const styleList = ['textDecoration', 'textTransform', 'textAlign', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'color', 'backgroudColor']
+    const styleList = ['textDecoration', 'textTransform', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'color', 'backgroudColor']
 
     styleList.forEach(s => {
       const propName = s.split(/(?=[A-Z])/).join('-').toLocaleLowerCase()
@@ -135,10 +152,11 @@ export class OmnisEditor {
   addCtrlListener() {
     this.buttonListener()
     this.selectListener()
+    this.showHtmlListener()
   }
 
   buttonListener() {
-    const  ctrls = [ ...document.querySelectorAll('[data-type="button"]') ]
+    const ctrls = [ ...document.querySelectorAll('[data-type="button"]') ]
 
     ctrls.forEach(c => {
       c.addEventListener('mousedown', e => e.preventDefault())
@@ -161,6 +179,28 @@ export class OmnisEditor {
 
     ctrls.forEach(c => {
       c.addEventListener('change', e => this.insertAction(e, e.target.value), false)
+    })
+  }
+
+  showHtmlListener() {
+    const showHtmlBtn = document.querySelector('#ctrl_showHtml')
+
+    showHtmlBtn.addEventListener('click', () => {
+      this.htmlMode = !this.htmlMode
+
+      if (this.htmlMode) {
+        let content = this.html
+        content = content.replace(/&lt;/g, '<')
+        content = content.replace(/&gt;/g, '>')
+  
+        this.area.innerHTML = content
+      } else {
+        let content = this.html
+        content = content.replace(/</g, '&lt;')
+        content = content.replace(/>/g, '&gt;')
+
+        this.area.innerHTML = content
+      }
     })
   }
 
@@ -226,6 +266,6 @@ export class OmnisEditor {
   wparContent() {
     const paragraph = document.createElement('p')
     paragraph.innerHTML = this.defaultValue
-    this.html = paragraph
+    this.innerHTML = paragraph
   }
 }
