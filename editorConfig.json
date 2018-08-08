@@ -12,34 +12,57 @@
   "controls": [
     {
       "name": "bold",
-      "style": "fontWeight",
-      "value": "bold",
+      "style": "bold",
       "type": "button",
       "icon": ""
     },
     {
       "name": "italic",
-      "style": "fontStyle",
-      "value": "italic",
+      "style": "italic",
       "type": "button",
       "icon": ""
     },
     {
-      "name": "Decoration",
-      "style": "textDecoration",
+      "name": "underline",
+      "style": "underline",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "strike through",
+      "style": "strikeThrough",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "font",
+      "style": "fontName",
       "type": "select",
       "icon": "",
       "options": [
-        "none",
-        "overline",
-        "underline overline",
-        "underline",
-        "line-through"
+        "Arial",
+        "Arial Black",
+        "Courier New",
+        "Times New Roman",
+        "Comic Sans MS",
+        "Georgia",
+        "Impact",
+        "Lucida Console",
+        "Tahoma"
+      ]
+    },
+    {
+      "name": "size",
+      "style": "fontSize",
+      "type": "select",
+      "icon": "",
+      "options": [
+        6, 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96
       ]
     },
     {
       "name": "Font color",
-      "style": "color",
+      "style": "foreColor",
       "type": "select",
       "icon": "",
       "options": [
@@ -75,7 +98,7 @@
     },
     {
       "name": "Background color",
-      "style": "backgroundColor",
+      "style": "hiliteColor",
       "type": "select",
       "icon": "",
       "options": [
@@ -110,58 +133,16 @@
       ]
     },
     {
-      "name": "font",
-      "style": "fontFamily",
+      "name": "Text Align",
+      "style": "textAlign",
       "type": "select",
       "icon": "",
       "options": [
-        "Arial",
-        "Arial Black",
-        "Courier New",
-        "Times New Roman",
-        "Comic Sans MS",
-        "Georgia",
-        "Impact",
-        "Lucida Console",
-        "Tahoma"
+        "left",
+        "right",
+        "center",
+        "justify"
       ]
-    },
-    {
-      "name": "size",
-      "style": "fontSize",
-      "type": "select",
-      "icon": "",
-      "options": [
-        6, 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96
-      ]
-    },
-    {
-      "name": "Aligin left",
-      "style": "textAlign",
-      "value": "left",
-      "type": "button",
-      "icon": ""
-    },
-    {
-      "name": "Aligin center",
-      "style": "textAlign",
-      "value": "center",
-      "type": "button",
-      "icon": ""
-    },
-    {
-      "name": "Aligin right",
-      "style": "textAlign",
-      "value": "right",
-      "type": "button",
-      "icon": ""
-    },
-    {
-      "name": "Aligin justify",
-      "style": "textAlign",
-      "value": "justify",
-      "type": "button",
-      "icon": ""
     },
     {
       "name": "Uppercase",
@@ -188,6 +169,20 @@
       "name": "Increase indent",
       "style": "padding",
       "value": 20,
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Ordered list",
+      "style": "list",
+      "value": "insertOrderedList",
+      "type": "button",
+      "icon": ""
+    },
+    {
+      "name": "Unordered list",
+      "style": "list",
+      "value": "insertUnorderedList",
       "type": "button",
       "icon": ""
     }

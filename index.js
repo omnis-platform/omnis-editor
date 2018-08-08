@@ -42,6 +42,8 @@ export class OmnisEditor {
   }
 
   insertComponents() {
+    document.execCommand('styleWithCSS', false, 'true')
+
     this.selector.style.width = '100%'
     this.section.className = 'omnis-editor-section om-s'
     this.controls.className = 'omnis-editor-controls om-s__c'
@@ -143,12 +145,19 @@ export class OmnisEditor {
     ctrls.forEach(c => {
       c.addEventListener('mousedown', e => e.preventDefault())
       c.addEventListener('click', e => {
-        if (e.target.dataset.ctrlStyle === 'textAlign') {
-          this.alignAction(e)
-        } else if (e.target.dataset.ctrlStyle === 'padding') {
-          this.indentAction(e)
-        } else {
-          this.insertAction(e, e.target.dataset.ctrlValue)
+        switch(e.target.dataset.ctrlStyle) {
+          case 'padding':
+            this.indentAction(e)
+            break 
+          case 'textTransform':
+            this.insertAction(e, e.target.dataset.ctrlValue)
+            break
+          case 'fontSize':
+            this.insertAction(e, e.target.dataset.ctrlValue)
+            break
+          default:
+            document.execCommand(e.target.dataset.ctrlStyle, false, '')
+            break
         }
 
         this.area.focus()
@@ -160,7 +169,13 @@ export class OmnisEditor {
     const  ctrls = [ ...document.querySelectorAll('[data-type="select"]') ]
 
     ctrls.forEach(c => {
-      c.addEventListener('change', e => this.insertAction(e, e.target.value), false)
+      c.addEventListener('change', e => {
+        if (e.target.dataset.ctrlStyle === 'textAlign') {
+          this.alignAction(e)
+        } else {
+          document.execCommand(e.target.dataset.ctrlStyle, false, e.target.value)
+        }
+      }, false)
     })
   }
 
@@ -187,7 +202,7 @@ export class OmnisEditor {
   }
 
   alignAction(e) {
-    this.alignSelection(e.target.dataset.ctrlValue)
+    this.alignSelection(e.target.value)
     this.area.focus()
   }
 
@@ -211,7 +226,7 @@ export class OmnisEditor {
   }
 
   addSelectionListener() {
-    window.addEventListener('mouseup', e => {
+    window.addEventListener('mouseup', () => {
       if (!window.getSelection) return
       this.selection = window.getSelection()
       
