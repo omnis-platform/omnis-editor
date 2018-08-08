@@ -98,24 +98,6 @@ export class OmnisEditor {
     this.controls.appendChild(button)
   }
 
-  get selectionNodeNames() {
-    let a = this.selection.focusNode.parentNode
-    let els = []
-  
-    while (a) {
-      els.unshift(a)
-      a = a.parentNode
-
-      if (els[0].nodeName === 'P') break
-    }
-
-    return els
-      .map(e => e.nodeName.toLowerCase())
-      .filter((e, i, a) => ((e !== 'p')) && a.indexOf(e) === i)
-      .filter(e => ((e !== 'span')))
-      .reverse()
-  }
-
   get selectionSpanNode() {
     let a = this.selection.focusNode.parentNode
 
@@ -135,7 +117,7 @@ export class OmnisEditor {
   setSelectionStyles(style, value) {
     const tmpStyles = {}
     const node = this.selectionSpanNode
-    const styleList = ['textDecoration', 'textTransform', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'color', 'backgroudColor']
+    const styleList = this.conf.styleNames
 
     styleList.forEach(s => {
       const propName = s.split(/(?=[A-Z])/).join('-').toLocaleLowerCase()
