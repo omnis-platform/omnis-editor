@@ -174,15 +174,13 @@
     },
     {
       "name": "Ordered list",
-      "style": "list",
-      "value": "insertOrderedList",
+      "style": "insertOrderedList",
       "type": "button",
       "icon": ""
     },
     {
       "name": "Unordered list",
-      "style": "list",
-      "value": "insertUnorderedList",
+      "style": "insertUnorderedList",
       "type": "button",
       "icon": ""
     }
