@@ -24,11 +24,17 @@ var _LinkDialog = require('./elements/LinkDialog');
 
 var _LinkDialog2 = _interopRequireDefault(_LinkDialog);
 
+var _ImageDialog = require('./elements/ImageDialog');
+
+var _ImageDialog2 = _interopRequireDefault(_ImageDialog);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Editor = function () {
-  function Editor() {
+  function Editor(props) {
     (0, _classCallCheck3.default)(this, Editor);
+
+    this.upload = props.upload;
   }
 
   (0, _createClass3.default)(Editor, [{
@@ -59,6 +65,9 @@ var Editor = function () {
               break;
             case 'createLink':
               _this.insertLinkAction(e.target);
+              break;
+            case 'insertImage':
+              _this.insertImageAction(e.target);
               break;
             default:
               document.execCommand(e.target.dataset.ctrlStyle, false, '');
@@ -161,6 +170,13 @@ var Editor = function () {
       var sel = this.selection;
       var range = this.range;
       var dialog = new _LinkDialog2.default(this.section, this.area, sel, range, target);
+
+      dialog.create();
+    }
+  }, {
+    key: 'insertImageAction',
+    value: function insertImageAction(target) {
+      var dialog = new _ImageDialog2.default(this.section, target, this.upload);
 
       dialog.create();
     }

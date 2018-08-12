@@ -180,6 +180,13 @@
       "icon": ""
     },
     {
+      "name": "Insert Image",
+      "style": "insertImage",
+      "value": "",
+      "type": "button",
+      "icon": ""
+    },
+    {
       "name": "Ordered list",
       "style": "insertOrderedList",
       "type": "button",

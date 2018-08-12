@@ -1,6 +1,11 @@
 import LinkDialog from './elements/LinkDialog'
+import ImageDialog from './elements/ImageDialog'
 
 export default class Editor {
+  constructor(props) {
+    this.upload = props.upload
+  }
+
   get selectionSpanNode() {
     let a = this.selection.focusNode.parentNode
 
@@ -38,6 +43,9 @@ export default class Editor {
             break
           case 'createLink':
             this.insertLinkAction(e.target)
+            break
+          case 'insertImage':
+            this.insertImageAction(e.target)
             break
           default:
             document.execCommand(e.target.dataset.ctrlStyle, false, '')
@@ -127,6 +135,12 @@ export default class Editor {
     const sel = this.selection
     const range = this.range
     const dialog = new LinkDialog(this.section, this.area, sel, range, target)
+
+    dialog.create()
+  }
+
+  insertImageAction(target) {
+    const dialog = new ImageDialog(this.section, target, this.upload)
 
     dialog.create()
   }
