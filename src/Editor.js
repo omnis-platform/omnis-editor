@@ -1,3 +1,5 @@
+import LinkDialog from './elements/LinkDialog'
+
 export default class Editor {
   get selectionSpanNode() {
     let a = this.selection.focusNode.parentNode
@@ -34,8 +36,11 @@ export default class Editor {
           case 'textTransform':
             this.insertAction(e.target.dataset.ctrlStyle, e.target.dataset.ctrlValue)
             break
+          case 'createLink':
+            this.insertLinkAction(e.target)
+            break
           default:
-            document.execCommand(e.target.dataset.ctrlStyle.target.dataset.ctrlStyle, false, '')
+            document.execCommand(e.target.dataset.ctrlStyle, false, '')
             break
         }
 
@@ -121,8 +126,16 @@ export default class Editor {
     this.area.focus()
   }
 
+  insertLinkAction(target) {
+    const sel = this.selection
+    const range = this.range
+    const dialog = new LinkDialog(this.section, this.area, sel, range, target)
+
+    dialog.create()
+  }
+
   addSelectionListener() {
-    window.addEventListener('mouseup', () => {
+    this.area.addEventListener('mouseup', () => {
       if (!window.getSelection) return
       this.selection = window.getSelection()
       

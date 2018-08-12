@@ -173,6 +173,13 @@
       "icon": ""
     },
     {
+      "name": "Create link",
+      "style": "createLink",
+      "value": "",
+      "type": "button",
+      "icon": ""
+    },
+    {
       "name": "Ordered list",
       "style": "insertOrderedList",
       "type": "button",

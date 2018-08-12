@@ -20,6 +20,10 @@ var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _LinkDialog = require('./elements/LinkDialog');
+
+var _LinkDialog2 = _interopRequireDefault(_LinkDialog);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Editor = function () {
@@ -53,8 +57,11 @@ var Editor = function () {
             case 'textTransform':
               _this.insertAction(e.target.dataset.ctrlStyle, e.target.dataset.ctrlValue);
               break;
+            case 'createLink':
+              _this.insertLinkAction(e.target);
+              break;
             default:
-              document.execCommand(e.target.dataset.ctrlStyle.target.dataset.ctrlStyle, false, '');
+              document.execCommand(e.target.dataset.ctrlStyle, false, '');
               break;
           }
 
@@ -152,11 +159,20 @@ var Editor = function () {
       this.area.focus();
     }
   }, {
+    key: 'insertLinkAction',
+    value: function insertLinkAction(target) {
+      var sel = this.selection;
+      var range = this.range;
+      var dialog = new _LinkDialog2.default(this.section, this.area, sel, range, target);
+
+      dialog.create();
+    }
+  }, {
     key: 'addSelectionListener',
     value: function addSelectionListener() {
       var _this4 = this;
 
-      window.addEventListener('mouseup', function () {
+      this.area.addEventListener('mouseup', function () {
         if (!window.getSelection) return;
         _this4.selection = window.getSelection();
 
