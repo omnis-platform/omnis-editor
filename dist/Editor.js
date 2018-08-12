@@ -120,21 +120,18 @@ var Editor = function () {
       var showHtmlBtn = document.querySelector('#ctrl_showHtml');
 
       showHtmlBtn.addEventListener('click', function () {
-        _this3.htmlMode = !_this3.htmlMode;
+        var content = _this3.html;
 
         if (_this3.htmlMode) {
-          var content = _this3.html;
           content = content.replace(/&lt;/g, '<');
           content = content.replace(/&gt;/g, '>');
-
-          _this3.area.innerHTML = content;
         } else {
-          var _content = _this3.html;
-          _content = _content.replace(/</g, '&lt;');
-          _content = _content.replace(/>/g, '&gt;');
-
-          _this3.area.innerHTML = _content;
+          content = content.replace(/</g, '&lt;');
+          content = content.replace(/>/g, '&gt;');
         }
+
+        _this3.area.innerHTML = content;
+        _this3.htmlMode = !_this3.htmlMode;
       });
     }
   }, {

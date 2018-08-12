@@ -90,21 +90,18 @@ export default class Editor {
     const showHtmlBtn = document.querySelector('#ctrl_showHtml')
 
     showHtmlBtn.addEventListener('click', () => {
-      this.htmlMode = !this.htmlMode
+      let content = this.html
 
       if (this.htmlMode) {
-        let content = this.html
         content = content.replace(/&lt;/g, '<')
         content = content.replace(/&gt;/g, '>')
-  
-        this.area.innerHTML = content
       } else {
-        let content = this.html
         content = content.replace(/</g, '&lt;')
         content = content.replace(/>/g, '&gt;')
-
-        this.area.innerHTML = content
       }
+
+      this.area.innerHTML = content
+      this.htmlMode = !this.htmlMode
     })
   }
 
