@@ -1,6 +1,7 @@
 import LinkDialog from './elements/LinkDialog'
 import ImageDialog from './elements/ImageDialog'
 import EmojiDialog from './elements/EmojiDialog'
+import SpecialCharactersModal from './elements/SpecialCharactersModal'
 
 export default class Editor {
   constructor(props) {
@@ -63,6 +64,9 @@ export default class Editor {
             break
           case 'insertEmoji':
             this.insertEmojiAction(e.target)
+            break
+          case 'specialCharacters':
+            this.insertCharactersAction()
             break
           default:
             document.execCommand(e.target.dataset.ctrlStyle, false, '')
@@ -168,6 +172,13 @@ export default class Editor {
     const dialog = new EmojiDialog(this.section, this.area, range, target)
 
     dialog.create()
+  }
+
+  insertCharactersAction() {
+    const range = this.range
+    const modal = new SpecialCharactersModal(this.section, this.area, range)
+
+    modal.create()
   }
 
   addSelectionListener() {

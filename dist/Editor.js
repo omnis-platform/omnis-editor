@@ -32,6 +32,10 @@ var _EmojiDialog = require('./elements/EmojiDialog');
 
 var _EmojiDialog2 = _interopRequireDefault(_EmojiDialog);
 
+var _SpecialCharactersModal = require('./elements/SpecialCharactersModal');
+
+var _SpecialCharactersModal2 = _interopRequireDefault(_SpecialCharactersModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Editor = function () {
@@ -89,6 +93,9 @@ var Editor = function () {
               break;
             case 'insertEmoji':
               _this.insertEmojiAction(e.target);
+              break;
+            case 'specialCharacters':
+              _this.insertCharactersAction();
               break;
             default:
               document.execCommand(e.target.dataset.ctrlStyle, false, '');
@@ -209,6 +216,14 @@ var Editor = function () {
       var dialog = new _EmojiDialog2.default(this.section, this.area, range, target);
 
       dialog.create();
+    }
+  }, {
+    key: 'insertCharactersAction',
+    value: function insertCharactersAction() {
+      var range = this.range;
+      var modal = new _SpecialCharactersModal2.default(this.section, this.area, range);
+
+      modal.create();
     }
   }, {
     key: 'addSelectionListener',

@@ -203,6 +203,12 @@
       "style": "insertHorizontalRule",
       "type": "button",
       "icon": ""
+    },
+    {
+      "name": "Special Characters",
+      "style": "specialCharacters",
+      "type": "button",
+      "icon": ""
     }
   ]
 }
