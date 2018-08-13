@@ -40,7 +40,7 @@ export default class Editor {
   addCtrlListener() {
     this.buttonListener()
     this.selectListener()
-    this.showHtmlListener()
+    this.serviceButtonListener()
   }
 
   buttonListener() {
@@ -115,23 +115,48 @@ export default class Editor {
     this.textStyles = styleArr.join('; ') || ''
   }
 
-  showHtmlListener() {
-    const showHtmlBtn = document.querySelector('#ctrl_showHtml')
+  serviceButtonListener() {
+    const ctrlBtns = [ ...document.querySelectorAll('[data-ctrl-btn="true"]') ]
 
-    showHtmlBtn.addEventListener('click', () => {
-      let content = this.html
-
-      if (this.htmlMode) {
-        content = content.replace(/&lt;/g, '<')
-        content = content.replace(/&gt;/g, '>')
-      } else {
-        content = content.replace(/</g, '&lt;')
-        content = content.replace(/>/g, '&gt;')
-      }
-
-      this.area.innerHTML = content
-      this.htmlMode = !this.htmlMode
+    ctrlBtns.forEach(btn => {
+      btn.addEventListener('click', e => {
+        switch(e.target.dataset.ctrlFor) {
+          case 'showHtml':
+            this.displayHtml()
+            break
+          case 'full':
+            this.setSectionFullSize()
+          default:
+            document.execCommand(e.target.dataset.ctrlFor, false)
+            break
+        }
+      })
     })
+  }
+
+  displayHtml() {
+    let content = this.html
+
+    if (this.htmlMode) {
+      content = content.replace(/&lt;/g, '<')
+      content = content.replace(/&gt;/g, '>')
+    } else {
+      content = content.replace(/</g, '&lt;')
+      content = content.replace(/>/g, '&gt;')
+    }
+
+    this.area.innerHTML = content
+    this.htmlMode = !this.htmlMode
+  }
+
+  setSectionFullSize() {
+    if (this.isFullSize) {
+      this.section.classList.remove('om-s--full')
+    } else {
+      this.section.classList.add('om-s--full')
+    }
+
+    this.isFullSize = !this.isFullSize
   }
 
   alignAction(e) {

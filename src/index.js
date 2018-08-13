@@ -21,6 +21,7 @@ export default class OmnisEditor extends Editor {
     this.selectionEnd = 0
 
     this.htmlMode = false
+    this.isFullSize = false
 
     this.innerHTML = ''
     this.textStyles = ''
@@ -38,7 +39,7 @@ export default class OmnisEditor extends Editor {
     this.wparContent()
     this.insertComponents()
     this.inserControles()
-    this.insertDisplayHtmlButton()
+    this.insertServiceButton()
     this.addSelectionListener()
     this.addCtrlListener()
     this.setSelection()
@@ -94,13 +95,17 @@ export default class OmnisEditor extends Editor {
     })
   }
 
-  insertDisplayHtmlButton() {
-    const button = document.createElement('button')
-    button.id = 'ctrl_showHtml'
-    button.className = 'om-s__c__ctrl-item'
-    button.innerHTML = 'show html'
-    button.dataset.ctrlShowHtml = true
+  insertServiceButton() {
+    const btns = ['undo', 'redo', 'full', 'showHtml']
 
-    this.controls.appendChild(button)
+    btns.forEach(btn => {
+      const button = document.createElement('button')
+      button.className = 'om-s__c__ctrl-item'
+      button.innerHTML = btn.split(/(?=[A-Z])/).join(' ')
+      button.dataset.ctrlBtn = true
+      button.dataset.ctrlFor = btn
+
+      this.controls.appendChild(button)
+    })
   }
 }

@@ -58,6 +58,7 @@ var OmnisEditor = function (_Editor) {
     _this.selectionEnd = 0;
 
     _this.htmlMode = false;
+    _this.isFullSize = false;
 
     _this.innerHTML = '';
     _this.textStyles = '';
@@ -78,7 +79,7 @@ var OmnisEditor = function (_Editor) {
       this.wparContent();
       this.insertComponents();
       this.inserControles();
-      this.insertDisplayHtmlButton();
+      this.insertServiceButton();
       this.addSelectionListener();
       this.addCtrlListener();
       this.setSelection();
@@ -138,15 +139,21 @@ var OmnisEditor = function (_Editor) {
       });
     }
   }, {
-    key: 'insertDisplayHtmlButton',
-    value: function insertDisplayHtmlButton() {
-      var button = document.createElement('button');
-      button.id = 'ctrl_showHtml';
-      button.className = 'om-s__c__ctrl-item';
-      button.innerHTML = 'show html';
-      button.dataset.ctrlShowHtml = true;
+    key: 'insertServiceButton',
+    value: function insertServiceButton() {
+      var _this3 = this;
 
-      this.controls.appendChild(button);
+      var btns = ['undo', 'redo', 'full', 'showHtml'];
+
+      btns.forEach(function (btn) {
+        var button = document.createElement('button');
+        button.className = 'om-s__c__ctrl-item';
+        button.innerHTML = btn.split(/(?=[A-Z])/).join(' ');
+        button.dataset.ctrlBtn = true;
+        button.dataset.ctrlFor = btn;
+
+        _this3.controls.appendChild(button);
+      });
     }
   }]);
   return OmnisEditor;

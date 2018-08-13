@@ -64,7 +64,7 @@ var Editor = function () {
     value: function addCtrlListener() {
       this.buttonListener();
       this.selectListener();
-      this.showHtmlListener();
+      this.serviceButtonListener();
     }
   }, {
     key: 'buttonListener',
@@ -150,26 +150,53 @@ var Editor = function () {
       this.textStyles = styleArr.join('; ') || '';
     }
   }, {
-    key: 'showHtmlListener',
-    value: function showHtmlListener() {
+    key: 'serviceButtonListener',
+    value: function serviceButtonListener() {
       var _this3 = this;
 
-      var showHtmlBtn = document.querySelector('#ctrl_showHtml');
+      var ctrlBtns = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('[data-ctrl-btn="true"]')));
 
-      showHtmlBtn.addEventListener('click', function () {
-        var content = _this3.html;
-
-        if (_this3.htmlMode) {
-          content = content.replace(/&lt;/g, '<');
-          content = content.replace(/&gt;/g, '>');
-        } else {
-          content = content.replace(/</g, '&lt;');
-          content = content.replace(/>/g, '&gt;');
-        }
-
-        _this3.area.innerHTML = content;
-        _this3.htmlMode = !_this3.htmlMode;
+      ctrlBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          switch (e.target.dataset.ctrlFor) {
+            case 'showHtml':
+              _this3.displayHtml();
+              break;
+            case 'full':
+              _this3.setSectionFullSize();
+            default:
+              document.execCommand(e.target.dataset.ctrlFor, false);
+              break;
+          }
+        });
       });
+    }
+  }, {
+    key: 'displayHtml',
+    value: function displayHtml() {
+      var content = this.html;
+
+      if (this.htmlMode) {
+        content = content.replace(/&lt;/g, '<');
+        content = content.replace(/&gt;/g, '>');
+      } else {
+        content = content.replace(/</g, '&lt;');
+        content = content.replace(/>/g, '&gt;');
+      }
+
+      this.area.innerHTML = content;
+      this.htmlMode = !this.htmlMode;
+    }
+  }, {
+    key: 'setSectionFullSize',
+    value: function setSectionFullSize() {
+      if (this.isFullSize) {
+        this.section.classList.remove('om-s--full');
+      } else {
+        this.section.classList.add('om-s--full');
+      }
+
+      this.isFullSize = !this.isFullSize;
     }
   }, {
     key: 'alignAction',
