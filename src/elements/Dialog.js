@@ -19,6 +19,19 @@ export default class Dialog {
     })
   }
 
+  restoreSelection() {
+    const sel = window.getSelection()
+
+    this.area.focus()
+
+    if (window.getSelection) {
+      sel.removeAllRanges()
+      sel.addRange(this.range)
+    } else if (document.selection && this.range.select) {
+      this.range.select()
+    }
+  }
+
   destroy() {
     this.dialog.parentNode.removeChild(this.dialog)
     this.overlay.parentNode.removeChild(this.overlay)

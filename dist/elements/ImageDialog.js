@@ -33,11 +33,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ImageDialog = function (_Dialog) {
   (0, _inherits3.default)(ImageDialog, _Dialog);
 
-  function ImageDialog(section, target, upload) {
+  function ImageDialog(section, area, range, target, upload) {
     (0, _classCallCheck3.default)(this, ImageDialog);
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (ImageDialog.__proto__ || (0, _getPrototypeOf2.default)(ImageDialog)).call(this));
 
+    _this.area = area;
+    _this.range = range;
     _this.upload = upload;
     _this.section = section;
     _this.target = target;
@@ -88,11 +90,15 @@ var ImageDialog = function (_Dialog) {
       var _this3 = this;
 
       this.upload.callback(file).then(function (res) {
-        var key = _this3.upload.useKey;
-        var url = _this3.upload.useOmnis ? res.thumbnails[key].url : res[key];
+        var result = res;
 
-        console.log(url);
-        document.execCommand('insertimage', false, url);
+        _this3.upload.useKeys.forEach(function (k) {
+          result = result[k];
+        });
+
+        _this3.restoreSelection();
+
+        document.execCommand('insertimage', false, result);
 
         _this3.destroy();
       });

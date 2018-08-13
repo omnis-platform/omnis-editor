@@ -22,6 +22,19 @@ export default class Editor {
     return this.area.innerHTML
   }
 
+  setSelection() {    
+    if (!window.getSelection) return
+    this.selection = window.getSelection()
+    
+    if (!this.selection.rangeCount) return
+    this.range = this.selection.getRangeAt(0).cloneRange()
+    this.selectionStart = this.range.startOffset
+    this.selectionEnd = this.range.endOffset
+
+    this.selection.removeAllRanges()
+    this.selection.addRange(this.range)
+  }
+
   addCtrlListener() {
     this.buttonListener()
     this.selectListener()
@@ -140,7 +153,8 @@ export default class Editor {
   }
 
   insertImageAction(target) {
-    const dialog = new ImageDialog(this.section, target, this.upload)
+    const range = this.range
+    const dialog = new ImageDialog(this.section, this.area, range, target, this.upload)
 
     dialog.create()
   }

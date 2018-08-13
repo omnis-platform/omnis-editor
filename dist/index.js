@@ -81,6 +81,7 @@ var OmnisEditor = function (_Editor) {
       this.insertDisplayHtmlButton();
       this.addSelectionListener();
       this.addCtrlListener();
+      this.setSelection();
     }
   }, {
     key: 'insertComponents',
@@ -102,6 +103,7 @@ var OmnisEditor = function (_Editor) {
       this.selector.appendChild(this.section);
       this.section.appendChild(this.controls);
       this.section.appendChild(this.area);
+
       this.area.focus();
     }
   }, {

@@ -93,16 +93,7 @@ var LinkDialog = function (_Dialog) {
       var _this2 = this;
 
       this.submit.addEventListener('click', function () {
-        var sel = window.getSelection();
-
-        _this2.area.focus();
-
-        if (window.getSelection) {
-          sel.removeAllRanges();
-          sel.addRange(_this2.range);
-        } else if (document.selection && _this2.range.select) {
-          _this2.range.select();
-        }
+        _this2.restoreSelection();
 
         _this2.link.href = _this2.url.value;
         _this2.link.target = _this2.checkbox.checked ? '_blank' : '';

@@ -1,9 +1,11 @@
 import Dialog from './Dialog'
 
 export default class ImageDialog extends Dialog {
-  constructor(section, target, upload) {
+  constructor(section, area, range, target, upload) {
     super()
   
+    this.area = area
+    this.range = range
     this.upload = upload
     this.section = section
     this.target = target
@@ -45,10 +47,13 @@ export default class ImageDialog extends Dialog {
 
   uploadImage(file) {
     this.upload.callback(file).then(res => {
-      const key = this.upload.useKey
-      const url = this.upload.useOmnis ? res.thumbnails[key].url : res[key]
+      let result = res
+    
+      this.upload.useKeys.forEach(k => { result = result[k] })
+      
+      this.restoreSelection()
 
-      document.execCommand('insertimage', false, url)
+      document.execCommand('insertimage', false, result)
 
       this.destroy()
     })

@@ -35,6 +35,20 @@ var Dialog = function () {
       });
     }
   }, {
+    key: 'restoreSelection',
+    value: function restoreSelection() {
+      var sel = window.getSelection();
+
+      this.area.focus();
+
+      if (window.getSelection) {
+        sel.removeAllRanges();
+        sel.addRange(this.range);
+      } else if (document.selection && this.range.select) {
+        this.range.select();
+      }
+    }
+  }, {
     key: 'destroy',
     value: function destroy() {
       this.dialog.parentNode.removeChild(this.dialog);

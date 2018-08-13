@@ -75,16 +75,7 @@ export default class LinkDialog extends Dialog {
 
   submitListener() {
     this.submit.addEventListener('click', () => {
-      const sel = window.getSelection()
-    
-      this.area.focus()
-      
-      if (window.getSelection) {
-        sel.removeAllRanges()
-        sel.addRange(this.range)
-      } else if (document.selection && this.range.select) {
-        this.range.select()
-      }
+      this.restoreSelection()
 
       this.link.href = this.url.value
       this.link.target = this.checkbox.checked ? '_blank' : ''

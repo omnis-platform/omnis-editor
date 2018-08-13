@@ -38,6 +38,20 @@ var Editor = function () {
   }
 
   (0, _createClass3.default)(Editor, [{
+    key: 'setSelection',
+    value: function setSelection() {
+      if (!window.getSelection) return;
+      this.selection = window.getSelection();
+
+      if (!this.selection.rangeCount) return;
+      this.range = this.selection.getRangeAt(0).cloneRange();
+      this.selectionStart = this.range.startOffset;
+      this.selectionEnd = this.range.endOffset;
+
+      this.selection.removeAllRanges();
+      this.selection.addRange(this.range);
+    }
+  }, {
     key: 'addCtrlListener',
     value: function addCtrlListener() {
       this.buttonListener();
@@ -176,7 +190,8 @@ var Editor = function () {
   }, {
     key: 'insertImageAction',
     value: function insertImageAction(target) {
-      var dialog = new _ImageDialog2.default(this.section, target, this.upload);
+      var range = this.range;
+      var dialog = new _ImageDialog2.default(this.section, this.area, range, target, this.upload);
 
       dialog.create();
     }

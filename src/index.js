@@ -41,6 +41,7 @@ export default class OmnisEditor extends Editor {
     this.insertDisplayHtmlButton()
     this.addSelectionListener()
     this.addCtrlListener()
+    this.setSelection()
   }
 
   insertComponents() {
@@ -61,6 +62,7 @@ export default class OmnisEditor extends Editor {
     this.selector.appendChild(this.section)
     this.section.appendChild(this.controls)
     this.section.appendChild(this.area)
+
     this.area.focus()
   }
 
