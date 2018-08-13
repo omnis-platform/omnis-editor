@@ -1,5 +1,6 @@
 import LinkDialog from './elements/LinkDialog'
 import ImageDialog from './elements/ImageDialog'
+import EmojiDialog from './elements/EmojiDialog'
 
 export default class Editor {
   constructor(props) {
@@ -59,6 +60,9 @@ export default class Editor {
             break
           case 'insertImage':
             this.insertImageAction(e.target)
+            break
+          case 'insertEmoji':
+            this.insertEmojiAction(e.target)
             break
           default:
             document.execCommand(e.target.dataset.ctrlStyle, false, '')
@@ -155,6 +159,13 @@ export default class Editor {
   insertImageAction(target) {
     const range = this.range
     const dialog = new ImageDialog(this.section, this.area, range, target, this.upload)
+
+    dialog.create()
+  }
+
+  insertEmojiAction(target) {
+    const range = this.range
+    const dialog = new EmojiDialog(this.section, this.area, range, target)
 
     dialog.create()
   }

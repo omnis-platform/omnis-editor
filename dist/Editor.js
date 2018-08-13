@@ -28,6 +28,10 @@ var _ImageDialog = require('./elements/ImageDialog');
 
 var _ImageDialog2 = _interopRequireDefault(_ImageDialog);
 
+var _EmojiDialog = require('./elements/EmojiDialog');
+
+var _EmojiDialog2 = _interopRequireDefault(_EmojiDialog);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Editor = function () {
@@ -82,6 +86,9 @@ var Editor = function () {
               break;
             case 'insertImage':
               _this.insertImageAction(e.target);
+              break;
+            case 'insertEmoji':
+              _this.insertEmojiAction(e.target);
               break;
             default:
               document.execCommand(e.target.dataset.ctrlStyle, false, '');
@@ -192,6 +199,14 @@ var Editor = function () {
     value: function insertImageAction(target) {
       var range = this.range;
       var dialog = new _ImageDialog2.default(this.section, this.area, range, target, this.upload);
+
+      dialog.create();
+    }
+  }, {
+    key: 'insertEmojiAction',
+    value: function insertEmojiAction(target) {
+      var range = this.range;
+      var dialog = new _EmojiDialog2.default(this.section, this.area, range, target);
 
       dialog.create();
     }

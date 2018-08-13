@@ -197,6 +197,12 @@
       "style": "insertUnorderedList",
       "type": "button",
       "icon": ""
+    },
+    {
+      "name": "Horizontal Rule",
+      "style": "insertHorizontalRule",
+      "type": "button",
+      "icon": ""
     }
   ]
 }
