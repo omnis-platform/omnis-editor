@@ -36,7 +36,7 @@ var ImageDialog = function (_Dialog) {
   function ImageDialog(section, area, range, target, upload) {
     (0, _classCallCheck3.default)(this, ImageDialog);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (ImageDialog.__proto__ || (0, _getPrototypeOf2.default)(ImageDialog)).call(this));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ImageDialog.__proto__ || (0, _getPrototypeOf2.default)(ImageDialog)).call(this, section, target));
 
     _this.area = area;
     _this.range = range;
@@ -45,7 +45,6 @@ var ImageDialog = function (_Dialog) {
     _this.target = target;
     _this.rect = target.getBoundingClientRect();
 
-    _this.dialog = document.createElement('div');
     _this.input = document.createElement('input');
     _this.labelText = document.createElement('p');
     _this.label = document.createElement('label');
@@ -55,10 +54,6 @@ var ImageDialog = function (_Dialog) {
   (0, _createClass3.default)(ImageDialog, [{
     key: 'create',
     value: function create() {
-      this.dialog.className = 'omnis-editor-dialog om-s__d';
-      this.dialog.style.top = this.rect.top + 24 + 'px';
-      this.dialog.style.left = this.rect.left + 'px';
-
       this.input.type = 'file';
       this.input.id = 'fileInput';
 
@@ -70,10 +65,7 @@ var ImageDialog = function (_Dialog) {
 
       this.dialog.appendChild(this.label);
 
-      this.section.appendChild(this.dialog);
-
       this.chengesListener();
-      this.createOverlay();
     }
   }, {
     key: 'chengesListener',

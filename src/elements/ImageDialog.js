@@ -2,7 +2,7 @@ import Dialog from './Dialog'
 
 export default class ImageDialog extends Dialog {
   constructor(section, area, range, target, upload) {
-    super()
+    super(section, target)
   
     this.area = area
     this.range = range
@@ -11,17 +11,12 @@ export default class ImageDialog extends Dialog {
     this.target = target
     this.rect = target.getBoundingClientRect()
 
-    this.dialog = document.createElement('div')
     this.input = document.createElement('input')
     this.labelText = document.createElement('p')
     this.label = document.createElement('label')
   }
 
   create() {
-    this.dialog.className = 'omnis-editor-dialog om-s__d'
-    this.dialog.style.top = `${this.rect.top + 24}px`
-    this.dialog.style.left = `${this.rect.left}px`
-
     this.input.type = 'file'
     this.input.id = 'fileInput'
 
@@ -33,10 +28,7 @@ export default class ImageDialog extends Dialog {
 
     this.dialog.appendChild(this.label)
 
-    this.section.appendChild(this.dialog)
-
     this.chengesListener()
-    this.createOverlay()
   }
 
   chengesListener() {

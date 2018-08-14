@@ -36,7 +36,7 @@ var LinkDialog = function (_Dialog) {
   function LinkDialog(section, area, selection, range, target) {
     (0, _classCallCheck3.default)(this, LinkDialog);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (LinkDialog.__proto__ || (0, _getPrototypeOf2.default)(LinkDialog)).call(this));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (LinkDialog.__proto__ || (0, _getPrototypeOf2.default)(LinkDialog)).call(this, section, target));
 
     _this.area = area;
     _this.selection = selection;
@@ -46,7 +46,6 @@ var LinkDialog = function (_Dialog) {
     _this.rect = target.getBoundingClientRect();
 
     _this.link = document.createElement('a');
-    _this.dialog = document.createElement('div');
     _this.url = document.createElement('input');
     _this.text = document.createElement('input');
     _this.checkbox = document.createElement('input');
@@ -72,20 +71,13 @@ var LinkDialog = function (_Dialog) {
       this.submit.type = 'submit';
       this.submit.value = 'Create';
 
-      this.dialog.className = 'omnis-editor-dialog om-s__d';
-      this.dialog.style.top = this.rect.top + 24 + 'px';
-      this.dialog.style.left = this.rect.left + 'px';
-
       this.dialog.appendChild(this.url);
       this.dialog.appendChild(this.label);
       this.dialog.appendChild(this.checkbox);
       this.dialog.appendChild(this.text);
       this.dialog.appendChild(this.submit);
 
-      this.section.appendChild(this.dialog);
-
       this.submitListener();
-      this.createOverlay();
     }
   }, {
     key: 'submitListener',

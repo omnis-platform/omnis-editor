@@ -2,7 +2,7 @@ import Dialog from './Dialog'
 
 export default class LinkDialog extends Dialog {
   constructor(section, area, selection, range, target) {
-    super()
+    super(section, target)
 
     this.area = area
     this.selection = selection
@@ -12,7 +12,6 @@ export default class LinkDialog extends Dialog {
     this.rect = target.getBoundingClientRect()
 
     this.link = document.createElement('a')
-    this.dialog = document.createElement('div')
     this.url = document.createElement('input')
     this.text = document.createElement('input')
     this.checkbox = document.createElement('input')
@@ -35,20 +34,13 @@ export default class LinkDialog extends Dialog {
     this.submit.type = 'submit'
     this.submit.value = 'Create'
 
-    this.dialog.className = 'omnis-editor-dialog om-s__d'
-    this.dialog.style.top = `${this.rect.top + 24}px`
-    this.dialog.style.left = `${this.rect.left}px`
-
     this.dialog.appendChild(this.url)
     this.dialog.appendChild(this.label)
     this.dialog.appendChild(this.checkbox)
     this.dialog.appendChild(this.text)
     this.dialog.appendChild(this.submit)
 
-    this.section.appendChild(this.dialog)
-
     this.submitListener()
-    this.createOverlay()
   }
 
   get content() {

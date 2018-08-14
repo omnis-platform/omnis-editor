@@ -1,22 +1,36 @@
 export default class Dialog {
-  constructor() {
+  constructor(section, target) {
+
+    this.btnRect = target.getBoundingClientRect()
+    this.sectionRect = section.getBoundingClientRect()
+    this.dialog = document.createElement('div')
     this.overlay = document.createElement('div')
+  
+    this.top = (this.btnRect.top - this.sectionRect.top) + 24
+
+    if (this.sectionRect.width > this.btnRect.left + 184) {
+      this.left = this.btnRect.left
+    } else {
+      this.left = this.btnRect.left - ((this.btnRect.left + 184) - this.sectionRect.width) - 50
+    }
+  
+    this.dialog.className = 'omnis-editor-dialog om-s__d'
+    this.dialog.style.top = `${this.top}px`
+    this.dialog.style.left = `${this.left}px`
+  
+    this.overlay.className = 'omnis-editor-d-overlay om-s__d__o'
+    this.overlay.addEventListener('click', () => {
+      this.destroy()
+    })
+
+    section.appendChild(this.dialog)
+    section.appendChild(this.overlay)
   }
 
   get selectionSpanNode() {
     let el = this.selection.focusNode.parentNode
 
     return el.closest('span')
-  }
-
-  createOverlay() {
-    this.overlay.className = 'omnis-editor-d-overlay om-s__d__o'
-
-    this.section.appendChild(this.overlay)
-
-    this.overlay.addEventListener('click', () => {
-      this.destroy()
-    })
   }
 
   restoreSelection() {
