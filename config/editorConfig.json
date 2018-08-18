@@ -1,6 +1,6 @@
 {
   "icon": {
-    "base": "https://s3.eu-central-1.amazonaws.com/omnis-editor/controls/",
+    "base": "https://d24k3ayzsm97re.cloudfront.net",
     "removeIcon": "round-format_color_reset-24px.svg"
   },
   "styleNames": [
@@ -18,25 +18,25 @@
       "name": "bold",
       "style": "bold",
       "type": "button",
-      "icon": "round-format_bold-24px.svg"
+      "icon": "/controls/round-format_bold-24px.svg"
     },
     {
       "name": "italic",
       "style": "italic",
       "type": "button",
-      "icon": "round-format_italic-24px.svg"
+      "icon": "/controls/round-format_italic-24px.svg"
     },
     {
       "name": "underline",
       "style": "underline",
       "type": "button",
-      "icon": "round-format_underlined-24px.svg"
+      "icon": "/controls/round-format_underlined-24px.svg"
     },
     {
       "name": "strike through",
       "style": "strikeThrough",
       "type": "button",
-      "icon": "round-strikethrough_s-24px.svg"
+      "icon": "/controls/round-strikethrough_s-24px.svg"
     },
     {
       "name": "Font name",
@@ -68,7 +68,7 @@
       "name": "Font color",
       "style": "foreColor",
       "type": "select",
-      "icon": "round-format_color_text-24px.svg",
+      "icon": "/controls/round-format_color_text-24px.svg",
       "options": [
         "#000000",
         "#ffffff",
@@ -104,7 +104,7 @@
       "name": "Background color",
       "style": "hiliteColor",
       "type": "select",
-      "icon": "round-format_color_fill-24px.svg",
+      "icon": "/controls/round-format_color_fill-24px.svg",
       "options": [
         "#000000",
         "#ffffff",
@@ -140,7 +140,7 @@
       "name": "Text Align",
       "style": "textAlign",
       "type": "select",
-      "icon": "justifyLeft.svg",
+      "icon": "/controls/justifyLeft.svg",
       "options": [
         "justifyLeft",
         "justifyRight",
@@ -153,66 +153,66 @@
       "style": "textTransform",
       "value": "uppercase",
       "type": "button",
-      "icon": "round-text_fields-24px_uppercase.svg"
+      "icon": "/controls/round-text_fields-24px_uppercase.svg"
     },
     {
       "name": "Lowercase",
       "style": "textTransform",
       "value": "lowercase",
       "type": "button",
-      "icon": "round-text_fields-24px.svg"
+      "icon": "/controls/round-text_fields-24px.svg"
     },
     {
       "name": "Decries indent",
       "style": "padding",
       "value": -20,
       "type": "button",
-      "icon": "round-format_indent_decrease-24px.svg"
+      "icon": "/controls/round-format_indent_decrease-24px.svg"
     },
     {
       "name": "Increase indent",
       "style": "padding",
       "value": 20,
       "type": "button",
-      "icon": "round-format_indent_increase-24px.svg"
+      "icon": "/controls/round-format_indent_increase-24px.svg"
     },
     {
       "name": "Create link",
       "style": "createLink",
       "value": "",
       "type": "button",
-      "icon": "round-insert_link-24px.svg"
+      "icon": "/controls/round-insert_link-24px.svg"
     },
     {
       "name": "Insert Image",
       "style": "insertImage",
       "value": "",
       "type": "button",
-      "icon": "round-insert_photo-24px.svg"
+      "icon": "/controls/round-insert_photo-24px.svg"
     },
     {
       "name": "Ordered list",
       "style": "insertOrderedList",
       "type": "button",
-      "icon": "round-format_list_numbered-24px.svg"
+      "icon": "/controls/round-format_list_numbered-24px.svg"
     },
     {
       "name": "Unordered list",
       "style": "insertUnorderedList",
       "type": "button",
-      "icon": "round-format_list_bulleted-24px.svg"
+      "icon": "/controls/round-format_list_bulleted-24px.svg"
     },
     {
       "name": "Horizontal Rule",
       "style": "insertHorizontalRule",
       "type": "button",
-      "icon": "round-format_horizontal-line-24px.svg"
+      "icon": "/controls/round-format_horizontal-line-24px.svg"
     },
     {
       "name": "Special Characters",
       "style": "specialCharacters",
       "type": "button",
-      "icon": "round-format_special-charcters-24px.svg"
+      "icon": "/controls/round-format_special-charcters-24px.svg"
     }
   ]
 }

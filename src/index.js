@@ -145,7 +145,7 @@ export default class OmnisEditor extends Editor {
       opt.dataset.ctrlValue = o
       opt.style.backgroundColor = o
 
-      if (o === 'REMOVE') opt.style.backgroundImage = `url(${this.iconBase + this.conf.icon.removeIcon})`
+      if (o === 'REMOVE') opt.style.backgroundImage = `url(${this.iconBase}/controls/${this.conf.icon.removeIcon})`
 
       wrap.appendChild(opt)
     })
@@ -203,8 +203,7 @@ export default class OmnisEditor extends Editor {
       opt.dataset.parentId = `ctrl_${index}`
       opt.dataset.ctrlStyle = ctrl.style
       opt.dataset.ctrlValue = o
-      opt.style.backgroundImage = `url(${this.iconBase + o}.svg)`
-
+      opt.style.backgroundImage = `url(${this.iconBase}/controls/${o}.svg)`
       wrap.appendChild(opt)
     })
   }
@@ -218,7 +217,7 @@ export default class OmnisEditor extends Editor {
       button.dataset.ctrlBtn = true
       button.dataset.ctrlFor = btn
       button.dataset.content = btn.split(/(?=[A-Z])/).join(' ')
-      button.style.backgroundImage = `url(${this.iconBase + btn}.svg)`
+      button.style.backgroundImage = `url(${this.iconBase}/controls/${btn}.svg)`
 
       this.controls.appendChild(button)
     })

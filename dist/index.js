@@ -194,7 +194,7 @@ var OmnisEditor = function (_Editor) {
         opt.dataset.ctrlValue = o;
         opt.style.backgroundColor = o;
 
-        if (o === 'REMOVE') opt.style.backgroundImage = 'url(' + (_this3.iconBase + _this3.conf.icon.removeIcon) + ')';
+        if (o === 'REMOVE') opt.style.backgroundImage = 'url(' + _this3.iconBase + '/controls/' + _this3.conf.icon.removeIcon + ')';
 
         wrap.appendChild(opt);
       });
@@ -257,8 +257,7 @@ var OmnisEditor = function (_Editor) {
         opt.dataset.parentId = 'ctrl_' + index;
         opt.dataset.ctrlStyle = ctrl.style;
         opt.dataset.ctrlValue = o;
-        opt.style.backgroundImage = 'url(' + (_this4.iconBase + o) + '.svg)';
-
+        opt.style.backgroundImage = 'url(' + _this4.iconBase + '/controls/' + o + '.svg)';
         wrap.appendChild(opt);
       });
     }
@@ -275,7 +274,7 @@ var OmnisEditor = function (_Editor) {
         button.dataset.ctrlBtn = true;
         button.dataset.ctrlFor = btn;
         button.dataset.content = btn.split(/(?=[A-Z])/).join(' ');
-        button.style.backgroundImage = 'url(' + (_this5.iconBase + btn) + '.svg)';
+        button.style.backgroundImage = 'url(' + _this5.iconBase + '/controls/' + btn + '.svg)';
 
         _this5.controls.appendChild(button);
       });
