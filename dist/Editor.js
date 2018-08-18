@@ -212,14 +212,15 @@ var Editor = function () {
   }, {
     key: 'textAlignAction',
     value: function textAlignAction(target) {
-      var parent = document.querySelector('#' + target.dataset.parentId);
-      var select = parent.querySelector('.om-s__select__opts--active');
+      var select = document.querySelector('#' + target.dataset.parentId);
+      var optionsWrap = select.querySelector('.om-s__select__opts--active');
+      var displayOpt = select.querySelector('.om-s__select__do');
 
       document.execCommand(target.dataset.ctrlValue, false);
       this.area.focus();
 
-      parent.style.backgroundImage = target.style.backgroundImage;
-      select.classList.remove('om-s__select__opts--active');
+      displayOpt.style.backgroundImage = target.style.backgroundImage;
+      optionsWrap.classList.remove('om-s__select__opts--active');
     }
   }, {
     key: 'indentAction',

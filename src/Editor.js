@@ -171,14 +171,15 @@ export default class Editor {
   }
 
   textAlignAction(target) {
-    const parent = document.querySelector(`#${target.dataset.parentId}`)
-    const select = parent.querySelector('.om-s__select__opts--active')
+    const select = document.querySelector(`#${target.dataset.parentId}`)
+    const optionsWrap = select.querySelector('.om-s__select__opts--active')
+    const displayOpt = select.querySelector('.om-s__select__do')
 
     document.execCommand(target.dataset.ctrlValue, false)
     this.area.focus()
 
-    parent.style.backgroundImage = target.style.backgroundImage
-    select.classList.remove('om-s__select__opts--active')
+    displayOpt.style.backgroundImage = target.style.backgroundImage
+    optionsWrap.classList.remove('om-s__select__opts--active')
   }
 
   indentAction(e) {
