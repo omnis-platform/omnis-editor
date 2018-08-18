@@ -118,8 +118,8 @@ var OmnisEditor = function (_Editor) {
       ctrls.className = 'om-s__c__item';
 
       this.conf.controls.forEach(function (c, index) {
-        if (c.type === 'select') {
-          _this2.createCtrlSelect(c, index);
+        if (c.type === 'dropdown') {
+          _this2.createCtrlDropdown(c, index);
         } else {
           _this2.creteCtrlButton(c, index);
         }
@@ -141,8 +141,8 @@ var OmnisEditor = function (_Editor) {
       this.controls.appendChild(ctrl);
     }
   }, {
-    key: 'createCtrlSelect',
-    value: function createCtrlSelect(c, index) {
+    key: 'createCtrlDropdown',
+    value: function createCtrlDropdown(c, index) {
       var ctrl = document.createElement('button');
       var option = document.createElement('div');
       var wrap = document.createElement('div');
@@ -153,8 +153,8 @@ var OmnisEditor = function (_Editor) {
       ctrl.dataset.type = c.type;
       ctrl.dataset.ctrlStyle = c.style;
 
-      wrap.className = 'om-s__select__opts om-s__select__opts--' + c.style;
-      option.className = 'om-s__select__do om-s__select__do--' + c.style;
+      wrap.className = 'om-s__dropdown__opts om-s__dropdown__opts--' + c.style;
+      option.className = 'om-s__dropdown__do om-s__dropdown__do--' + c.style;
       option.style.backgroundImage = 'url(' + (this.iconBase + c.icon) + ')';
 
       switch (c.style) {
@@ -187,7 +187,7 @@ var OmnisEditor = function (_Editor) {
 
       ctrl.options.forEach(function (o) {
         var opt = document.createElement('div');
-        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.className = 'om-s__dropdown__opt--' + ctrl.style;
         opt.dataset.type = 'button';
         opt.dataset.parentId = 'ctrl_' + index;
         opt.dataset.ctrlStyle = ctrl.style;
@@ -203,13 +203,13 @@ var OmnisEditor = function (_Editor) {
     key: 'createFontNameDropDown',
     value: function createFontNameDropDown(ctrl, index, option, wrap) {
       var container = document.createElement('div');
-      container.className = 'om-s__select__opts__container';
+      container.className = 'om-s__dropdown__opts__container';
       option.innerHTML = ctrl.options[0];
       option.style.backgroundImage = '';
 
       ctrl.options.forEach(function (o) {
         var opt = document.createElement('div');
-        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.className = 'om-s__dropdown__opt--' + ctrl.style;
         opt.dataset.type = 'button';
         opt.dataset.parentId = 'ctrl_' + index;
         opt.dataset.ctrlStyle = ctrl.style;
@@ -226,13 +226,13 @@ var OmnisEditor = function (_Editor) {
     key: 'createFontSizeDropDown',
     value: function createFontSizeDropDown(ctrl, index, option, wrap) {
       var container = document.createElement('div');
-      container.className = 'om-s__select__opts__container';
+      container.className = 'om-s__dropdown__opts__container';
       option.innerHTML = ctrl.options[0] + 'pt';
       option.style.backgroundImage = '';
 
       ctrl.options.forEach(function (o) {
         var opt = document.createElement('div');
-        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.className = 'om-s__dropdown__opt--' + ctrl.style;
         opt.dataset.type = 'button';
         opt.dataset.parentId = 'ctrl_' + index;
         opt.dataset.ctrlStyle = ctrl.style;
@@ -252,7 +252,7 @@ var OmnisEditor = function (_Editor) {
 
       ctrl.options.forEach(function (o) {
         var opt = document.createElement('div');
-        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.className = 'om-s__dropdown__opt--' + ctrl.style;
         opt.dataset.type = 'button';
         opt.dataset.parentId = 'ctrl_' + index;
         opt.dataset.ctrlStyle = ctrl.style;
@@ -282,7 +282,7 @@ var OmnisEditor = function (_Editor) {
   }, {
     key: 'elementCloseListener',
     value: function elementCloseListener() {
-      var classList = ['om-s__select__opts'];
+      var classList = ['om-s__dropdown__opts'];
 
       this.area.addEventListener('click', function () {
         classList.forEach(function (c) {

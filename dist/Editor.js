@@ -124,18 +124,18 @@ var Editor = function () {
   }, {
     key: 'selectListener',
     value: function selectListener() {
-      var ctrls = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('[data-type="select"]')));
+      var ctrls = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('[data-type="dropdown"]')));
 
       ctrls.forEach(function (c) {
         c.addEventListener('click', function (e) {
-          var select = e.target.querySelector('.om-s__select__opts') || e.target;
-          var selects = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('.om-s__select__opts--active')));
+          var dropdown = e.target.querySelector('.om-s__dropdown__opts') || e.target;
+          var dropdowns = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('.om-s__dropdown__opts--active')));
 
           if (e.target.nodeName === 'BUTTON') {
-            selects.forEach(function (s) {
-              return s.classList.remove('om-s__select__opts--active');
+            dropdowns.forEach(function (s) {
+              return s.classList.remove('om-s__dropdown__opts--active');
             });
-            select.classList.toggle('om-s__select__opts--active');
+            dropdown.classList.toggle('om-s__dropdown__opts--active');
           }
         }, false);
       });
@@ -221,15 +221,15 @@ var Editor = function () {
   }, {
     key: 'textAlignAction',
     value: function textAlignAction(target) {
-      var select = document.querySelector('#' + target.dataset.parentId);
-      var optionsWrap = select.querySelector('.om-s__select__opts--active');
-      var displayOpt = select.querySelector('.om-s__select__do');
+      var dropdown = document.querySelector('#' + target.dataset.parentId);
+      var optionsWrap = dropdown.querySelector('.om-s__dropdown__opts--active');
+      var displayOpt = dropdown.querySelector('.om-s__dropdown__do');
 
       document.execCommand(target.dataset.ctrlValue, false);
       this.area.focus();
 
       displayOpt.style.backgroundImage = target.style.backgroundImage;
-      optionsWrap.classList.remove('om-s__select__opts--active');
+      optionsWrap.classList.remove('om-s__dropdown__opts--active');
     }
   }, {
     key: 'indentAction',
@@ -289,17 +289,17 @@ var Editor = function () {
       }
 
       document.execCommand(target.dataset.ctrlStyle, false, val);
-      target.parentNode.classList.remove('om-s__select__opts--active');
+      target.parentNode.classList.remove('om-s__dropdown__opts--active');
     }
   }, {
     key: 'changeFontNameAction',
     value: function changeFontNameAction(target) {
-      var select = document.querySelector('#' + target.dataset.parentId);
-      var displayOpt = select.querySelector('.om-s__select__do');
-      var optionsWrap = select.querySelector('.om-s__select__opts--active');
+      var dropdown = document.querySelector('#' + target.dataset.parentId);
+      var displayOpt = dropdown.querySelector('.om-s__dropdown__do');
+      var optionsWrap = dropdown.querySelector('.om-s__dropdown__opts--active');
 
       displayOpt.innerHTML = target.dataset.ctrlValue;
-      optionsWrap.classList.remove('om-s__select__opts--active');
+      optionsWrap.classList.remove('om-s__dropdown__opts--active');
       document.execCommand(target.dataset.ctrlStyle, false, target.dataset.ctrlValue);
     }
   }, {
@@ -307,15 +307,15 @@ var Editor = function () {
     value: function changeFontSizeAction(target) {
       this.setSelectionStyles(target.dataset.ctrlStyle, target.dataset.ctrlValue);
 
-      var select = document.querySelector('#' + target.dataset.parentId);
-      var displayOpt = select.querySelector('.om-s__select__do');
-      var optionsWrap = select.querySelector('.om-s__select__opts--active');
+      var dropdown = document.querySelector('#' + target.dataset.parentId);
+      var displayOpt = dropdown.querySelector('.om-s__dropdown__do');
+      var optionsWrap = dropdown.querySelector('.om-s__dropdown__opts--active');
       var el = this.wrapSelection();
 
       console.log(el);
 
       displayOpt.innerHTML = target.dataset.ctrlValue;
-      optionsWrap.classList.remove('om-s__select__opts--active');
+      optionsWrap.classList.remove('om-s__dropdown__opts--active');
       document.execCommand('insertHTML', false, el);
       this.area.focus();
     }

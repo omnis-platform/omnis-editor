@@ -42,7 +42,7 @@
     {
       "name": "Font name",
       "style": "fontName",
-      "type": "select",
+      "type": "dropdown",
       "icon": "",
       "options": [
         "Arial",
@@ -59,7 +59,7 @@
     {
       "name": "Font Size",
       "style": "fontSize",
-      "type": "select",
+      "type": "dropdown",
       "icon": "",
       "options": [
         6, 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96
@@ -68,7 +68,7 @@
     {
       "name": "Font color",
       "style": "foreColor",
-      "type": "select",
+      "type": "dropdown",
       "icon": "/controls/round-format_color_text-24px.svg",
       "options": [
         "#000000",
@@ -104,7 +104,7 @@
     {
       "name": "Background color",
       "style": "hiliteColor",
-      "type": "select",
+      "type": "dropdown",
       "icon": "/controls/round-format_color_fill-24px.svg",
       "options": [
         "#000000",
@@ -140,7 +140,7 @@
     {
       "name": "Text Align",
       "style": "textAlign",
-      "type": "select",
+      "type": "dropdown",
       "icon": "/controls/justifyLeft.svg",
       "options": [
         "justifyLeft",

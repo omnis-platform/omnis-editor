@@ -74,8 +74,8 @@ export default class OmnisEditor extends Editor {
     ctrls.className = 'om-s__c__item'
 
     this.conf.controls.forEach((c, index) => {
-      if (c.type === 'select') {
-        this.createCtrlSelect(c, index)
+      if (c.type === 'dropdown') {
+        this.createCtrlDropdown(c, index)
       } else {
         this.creteCtrlButton(c, index)
       }
@@ -96,7 +96,7 @@ export default class OmnisEditor extends Editor {
     this.controls.appendChild(ctrl)
   }
 
-  createCtrlSelect(c, index) {
+  createCtrlDropdown(c, index) {
     const ctrl = document.createElement('button')
     const option = document.createElement('div')
     const wrap = document.createElement('div')
@@ -107,8 +107,8 @@ export default class OmnisEditor extends Editor {
     ctrl.dataset.type = c.type
     ctrl.dataset.ctrlStyle = c.style
 
-    wrap.className = `om-s__select__opts om-s__select__opts--${c.style}`
-    option.className = `om-s__select__do om-s__select__do--${c.style}`
+    wrap.className = `om-s__dropdown__opts om-s__dropdown__opts--${c.style}`
+    option.className = `om-s__dropdown__do om-s__dropdown__do--${c.style}`
     option.style.backgroundImage = `url(${this.iconBase + c.icon})`
 
     switch(c.style) {
@@ -138,7 +138,7 @@ export default class OmnisEditor extends Editor {
   createColorDropDown(ctrl, index, wrap) {
     ctrl.options.forEach(o => {
       const opt = document.createElement('div')
-      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.className = `om-s__dropdown__opt--${ctrl.style}`
       opt.dataset.type = 'button'
       opt.dataset.parentId = `ctrl_${index}`
       opt.dataset.ctrlStyle = ctrl.style
@@ -153,13 +153,13 @@ export default class OmnisEditor extends Editor {
 
   createFontNameDropDown(ctrl, index, option, wrap) {
     const container = document.createElement('div')
-    container.className = 'om-s__select__opts__container'
+    container.className = 'om-s__dropdown__opts__container'
     option.innerHTML = ctrl.options[0]
     option.style.backgroundImage = ''
 
     ctrl.options.forEach(o => {
       const opt = document.createElement('div')
-      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.className = `om-s__dropdown__opt--${ctrl.style}`
       opt.dataset.type = 'button'
       opt.dataset.parentId = `ctrl_${index}`
       opt.dataset.ctrlStyle = ctrl.style
@@ -175,13 +175,13 @@ export default class OmnisEditor extends Editor {
 
   createFontSizeDropDown(ctrl, index, option, wrap) {
     const container = document.createElement('div')
-    container.className = 'om-s__select__opts__container'
+    container.className = 'om-s__dropdown__opts__container'
     option.innerHTML = `${ctrl.options[0]}pt`
     option.style.backgroundImage = ''
 
     ctrl.options.forEach(o => {
       const opt = document.createElement('div')
-      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.className = `om-s__dropdown__opt--${ctrl.style}`
       opt.dataset.type = 'button'
       opt.dataset.parentId = `ctrl_${index}`
       opt.dataset.ctrlStyle = ctrl.style
@@ -198,7 +198,7 @@ export default class OmnisEditor extends Editor {
   createTextAlignDropDown(ctrl, index, wrap) {
     ctrl.options.forEach(o => {
       const opt = document.createElement('div')
-      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.className = `om-s__dropdown__opt--${ctrl.style}`
       opt.dataset.type = 'button'
       opt.dataset.parentId = `ctrl_${index}`
       opt.dataset.ctrlStyle = ctrl.style
@@ -224,7 +224,7 @@ export default class OmnisEditor extends Editor {
   }
 
   elementCloseListener() {
-    const classList = ['om-s__select__opts']
+    const classList = ['om-s__dropdown__opts']
 
     this.area.addEventListener('click', () => {
       classList.forEach(c => {

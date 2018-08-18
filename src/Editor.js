@@ -94,16 +94,16 @@ export default class Editor {
   }
 
   selectListener() {
-    const ctrls = [ ...document.querySelectorAll('[data-type="select"]') ]
+    const ctrls = [ ...document.querySelectorAll('[data-type="dropdown"]') ]
 
     ctrls.forEach(c => {
       c.addEventListener('click', e => {
-        const select = e.target.querySelector('.om-s__select__opts') || e.target
-        const selects = [ ...document.querySelectorAll('.om-s__select__opts--active') ]
+        const dropdown = e.target.querySelector('.om-s__dropdown__opts') || e.target
+        const dropdowns = [ ...document.querySelectorAll('.om-s__dropdown__opts--active') ]
 
         if (e.target.nodeName === 'BUTTON') {  
-          selects.forEach(s => s.classList.remove('om-s__select__opts--active'))
-          select.classList.toggle('om-s__select__opts--active')
+          dropdowns.forEach(s => s.classList.remove('om-s__dropdown__opts--active'))
+          dropdown.classList.toggle('om-s__dropdown__opts--active')
         }
       }, false)
     })
@@ -180,15 +180,15 @@ export default class Editor {
   }
 
   textAlignAction(target) {
-    const select = document.querySelector(`#${target.dataset.parentId}`)
-    const optionsWrap = select.querySelector('.om-s__select__opts--active')
-    const displayOpt = select.querySelector('.om-s__select__do')
+    const dropdown = document.querySelector(`#${target.dataset.parentId}`)
+    const optionsWrap = dropdown.querySelector('.om-s__dropdown__opts--active')
+    const displayOpt = dropdown.querySelector('.om-s__dropdown__do')
 
     document.execCommand(target.dataset.ctrlValue, false)
     this.area.focus()
 
     displayOpt.style.backgroundImage = target.style.backgroundImage
-    optionsWrap.classList.remove('om-s__select__opts--active')
+    optionsWrap.classList.remove('om-s__dropdown__opts--active')
   }
 
   indentAction(e) {
@@ -242,31 +242,31 @@ export default class Editor {
     }
 
     document.execCommand(target.dataset.ctrlStyle, false, val)
-    target.parentNode.classList.remove('om-s__select__opts--active')
+    target.parentNode.classList.remove('om-s__dropdown__opts--active')
   }
 
   changeFontNameAction(target) {
-    const select = document.querySelector(`#${target.dataset.parentId}`)
-    const displayOpt = select.querySelector('.om-s__select__do')
-    const optionsWrap = select.querySelector('.om-s__select__opts--active')
+    const dropdown = document.querySelector(`#${target.dataset.parentId}`)
+    const displayOpt = dropdown.querySelector('.om-s__dropdown__do')
+    const optionsWrap = dropdown.querySelector('.om-s__dropdown__opts--active')
 
     displayOpt.innerHTML = target.dataset.ctrlValue
-    optionsWrap.classList.remove('om-s__select__opts--active')
+    optionsWrap.classList.remove('om-s__dropdown__opts--active')
     document.execCommand(target.dataset.ctrlStyle, false, target.dataset.ctrlValue)
   }
 
   changeFontSizeAction(target) {
     this.setSelectionStyles(target.dataset.ctrlStyle, target.dataset.ctrlValue)
 
-    const select = document.querySelector(`#${target.dataset.parentId}`)
-    const displayOpt = select.querySelector('.om-s__select__do')
-    const optionsWrap = select.querySelector('.om-s__select__opts--active')
+    const dropdown = document.querySelector(`#${target.dataset.parentId}`)
+    const displayOpt = dropdown.querySelector('.om-s__dropdown__do')
+    const optionsWrap = dropdown.querySelector('.om-s__dropdown__opts--active')
     const el = this.wrapSelection()
 
     console.log(el)
 
     displayOpt.innerHTML = target.dataset.ctrlValue
-    optionsWrap.classList.remove('om-s__select__opts--active')
+    optionsWrap.classList.remove('om-s__dropdown__opts--active')
     document.execCommand('insertHTML', false, el)
     this.area.focus()
   }
