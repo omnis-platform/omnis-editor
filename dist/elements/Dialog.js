@@ -66,6 +66,7 @@ var Dialog = function () {
     value: function destroy() {
       this.dialog.parentNode.removeChild(this.dialog);
       this.overlay.parentNode.removeChild(this.overlay);
+      this.selection.removeAllRanges();
     }
   }, {
     key: 'selectionSpanNode',

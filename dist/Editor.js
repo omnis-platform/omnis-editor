@@ -97,6 +97,21 @@ var Editor = function () {
             case 'specialCharacters':
               _this.insertCharactersAction();
               break;
+            case 'foreColor':
+              _this.changeColorAction(e.target);
+              break;
+            case 'hiliteColor':
+              _this.changeColorAction(e.target);
+              break;
+            case 'textAlign':
+              _this.textAlignAction(e.target);
+              break;
+            case 'fontName':
+              _this.changeFontNameAction(e.target);
+              break;
+            case 'fontSize':
+              _this.changeFontSizeAction(e.target);
+              break;
             default:
               document.execCommand(e.target.dataset.ctrlStyle, false, '');
               break;
@@ -109,22 +124,18 @@ var Editor = function () {
   }, {
     key: 'selectListener',
     value: function selectListener() {
-      var _this2 = this;
-
       var ctrls = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('[data-type="select"]')));
 
       ctrls.forEach(function (c) {
-        c.addEventListener('change', function (e) {
-          switch (e.target.dataset.ctrlStyle) {
-            case 'fontSize':
-              _this2.insertAction(e.target.dataset.ctrlStyle, e.target.value);
-              break;
-            case 'textAlign':
-              _this2.alignAction(e);
-              break;
-            default:
-              document.execCommand(e.target.dataset.ctrlStyle, false, e.target.value);
-              break;
+        c.addEventListener('click', function (e) {
+          var select = e.target.querySelector('.om-s__select__opts') || e.target;
+          var selects = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('.om-s__select__opts--active')));
+
+          if (e.target.nodeName === 'BUTTON') {
+            selects.forEach(function (s) {
+              return s.classList.remove('om-s__select__opts--active');
+            });
+            select.classList.toggle('om-s__select__opts--active');
           }
         }, false);
       });
@@ -152,7 +163,7 @@ var Editor = function () {
   }, {
     key: 'serviceButtonListener',
     value: function serviceButtonListener() {
-      var _this3 = this;
+      var _this2 = this;
 
       var ctrlBtns = [].concat((0, _toConsumableArray3.default)(document.querySelectorAll('[data-ctrl-btn="true"]')));
 
@@ -160,10 +171,10 @@ var Editor = function () {
         btn.addEventListener('click', function (e) {
           switch (e.target.dataset.ctrlFor) {
             case 'showHtml':
-              _this3.displayHtml();
+              _this2.displayHtml();
               break;
-            case 'full':
-              _this3.setSectionFullSize();
+            case 'fullScreen':
+              _this2.setSectionFullSize();
             default:
               document.execCommand(e.target.dataset.ctrlFor, false);
               break;
@@ -199,10 +210,16 @@ var Editor = function () {
       this.isFullSize = !this.isFullSize;
     }
   }, {
-    key: 'alignAction',
-    value: function alignAction(e) {
-      this.alignSelection(e.target.value);
+    key: 'textAlignAction',
+    value: function textAlignAction(target) {
+      var parent = document.querySelector('#' + target.dataset.parentId);
+      var select = parent.querySelector('.om-s__select__opts--active');
+
+      document.execCommand(target.dataset.ctrlValue, false);
       this.area.focus();
+
+      parent.style.backgroundImage = target.style.backgroundImage;
+      select.classList.remove('om-s__select__opts--active');
     }
   }, {
     key: 'indentAction',
@@ -253,18 +270,56 @@ var Editor = function () {
       modal.create();
     }
   }, {
+    key: 'changeColorAction',
+    value: function changeColorAction(target) {
+      var val = target.dataset.ctrlValue;
+
+      if (target.dataset.ctrlValue === 'REMOVE') {
+        if (target.dataset.ctrlStyle === 'hiliteColor') val = '#ffffff';else val = '#000000';
+      }
+
+      document.execCommand(target.dataset.ctrlStyle, false, val);
+      target.parentNode.classList.remove('om-s__select__opts--active');
+    }
+  }, {
+    key: 'changeFontNameAction',
+    value: function changeFontNameAction(target) {
+      var select = document.querySelector('#' + target.dataset.parentId);
+      var displayOpt = select.querySelector('.om-s__select__do');
+      var optionsWrap = select.querySelector('.om-s__select__opts--active');
+
+      displayOpt.innerHTML = target.dataset.ctrlValue;
+      optionsWrap.classList.remove('om-s__select__opts--active');
+      document.execCommand(target.dataset.ctrlStyle, false, target.dataset.ctrlValue);
+    }
+  }, {
+    key: 'changeFontSizeAction',
+    value: function changeFontSizeAction(target) {
+      this.setSelectionStyles(target.dataset.ctrlStyle, target.dataset.ctrlValue);
+
+      var select = document.querySelector('#' + target.dataset.parentId);
+      var displayOpt = select.querySelector('.om-s__select__do');
+      var optionsWrap = select.querySelector('.om-s__select__opts--active');
+      var el = this.wrapSelection();
+
+      displayOpt.innerHTML = target.dataset.ctrlValue;
+      optionsWrap.classList.remove('om-s__select__opts--active');
+      document.execCommand('insertHTML', false, el);
+      this.area.focus();
+    }
+  }, {
     key: 'addSelectionListener',
     value: function addSelectionListener() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.area.addEventListener('mouseup', function () {
         if (!window.getSelection) return;
-        _this4.selection = window.getSelection();
+        _this3.selection = window.getSelection();
 
-        if (!_this4.selection.rangeCount) return;
-        _this4.range = _this4.selection.getRangeAt(0).cloneRange();
-        _this4.selectionStart = _this4.range.startOffset;
-        _this4.selectionEnd = _this4.range.endOffset;
+        if (!_this3.selection.rangeCount) return;
+        _this3.range = _this3.selection.getRangeAt(0).cloneRange();
+        _this3.selectionStart = _this3.range.startOffset;
+        _this3.selectionEnd = _this3.range.endOffset;
       });
     }
   }, {
@@ -281,11 +336,6 @@ var Editor = function () {
       }
 
       return span.outerHTML;
-    }
-  }, {
-    key: 'alignSelection',
-    value: function alignSelection(val) {
-      this.selectionParagraphNode.style.textAlign = val;
     }
   }, {
     key: 'indentSelection',

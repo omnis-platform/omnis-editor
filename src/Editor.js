@@ -68,6 +68,21 @@ export default class Editor {
           case 'specialCharacters':
             this.insertCharactersAction()
             break
+          case 'foreColor':
+            this.changeColorAction(e.target)
+            break
+          case 'hiliteColor':
+            this.changeColorAction(e.target)
+            break
+          case 'textAlign':
+            this.textAlignAction(e.target)
+            break
+          case 'fontName':
+            this.changeFontNameAction(e.target)
+            break
+          case 'fontSize':
+            this.changeFontSizeAction(e.target)
+            break
           default:
             document.execCommand(e.target.dataset.ctrlStyle, false, '')
             break
@@ -82,17 +97,13 @@ export default class Editor {
     const ctrls = [ ...document.querySelectorAll('[data-type="select"]') ]
 
     ctrls.forEach(c => {
-      c.addEventListener('change', e => {
-        switch(e.target.dataset.ctrlStyle) {
-          case 'fontSize':
-            this.insertAction(e.target.dataset.ctrlStyle, e.target.value)
-            break
-          case 'textAlign':
-            this.alignAction(e)
-            break
-          default:
-            document.execCommand(e.target.dataset.ctrlStyle, false, e.target.value)
-            break
+      c.addEventListener('click', e => {
+        const select = e.target.querySelector('.om-s__select__opts') || e.target
+        const selects = [ ...document.querySelectorAll('.om-s__select__opts--active') ]
+
+        if (e.target.nodeName === 'BUTTON') {  
+          selects.forEach(s => s.classList.remove('om-s__select__opts--active'))
+          select.classList.toggle('om-s__select__opts--active')
         }
       }, false)
     })
@@ -124,7 +135,7 @@ export default class Editor {
           case 'showHtml':
             this.displayHtml()
             break
-          case 'full':
+          case 'fullScreen':
             this.setSectionFullSize()
           default:
             document.execCommand(e.target.dataset.ctrlFor, false)
@@ -159,9 +170,15 @@ export default class Editor {
     this.isFullSize = !this.isFullSize
   }
 
-  alignAction(e) {
-    this.alignSelection(e.target.value)
+  textAlignAction(target) {
+    const parent = document.querySelector(`#${target.dataset.parentId}`)
+    const select = parent.querySelector('.om-s__select__opts--active')
+
+    document.execCommand(target.dataset.ctrlValue, false)
     this.area.focus()
+
+    parent.style.backgroundImage = target.style.backgroundImage
+    select.classList.remove('om-s__select__opts--active')
   }
 
   indentAction(e) {
@@ -206,6 +223,42 @@ export default class Editor {
     modal.create()
   }
 
+  changeColorAction(target) {
+    let val = target.dataset.ctrlValue
+
+    if (target.dataset.ctrlValue === 'REMOVE') {
+      if (target.dataset.ctrlStyle === 'hiliteColor') val = '#ffffff'
+      else val = '#000000'
+    }
+
+    document.execCommand(target.dataset.ctrlStyle, false, val)
+    target.parentNode.classList.remove('om-s__select__opts--active')
+  }
+
+  changeFontNameAction(target) {
+    const select = document.querySelector(`#${target.dataset.parentId}`)
+    const displayOpt = select.querySelector('.om-s__select__do')
+    const optionsWrap = select.querySelector('.om-s__select__opts--active')
+
+    displayOpt.innerHTML = target.dataset.ctrlValue
+    optionsWrap.classList.remove('om-s__select__opts--active')
+    document.execCommand(target.dataset.ctrlStyle, false, target.dataset.ctrlValue)
+  }
+
+  changeFontSizeAction(target) {
+    this.setSelectionStyles(target.dataset.ctrlStyle, target.dataset.ctrlValue)
+
+    const select = document.querySelector(`#${target.dataset.parentId}`)
+    const displayOpt = select.querySelector('.om-s__select__do')
+    const optionsWrap = select.querySelector('.om-s__select__opts--active')
+    const el = this.wrapSelection()
+
+    displayOpt.innerHTML = target.dataset.ctrlValue
+    optionsWrap.classList.remove('om-s__select__opts--active')
+    document.execCommand('insertHTML', false, el)
+    this.area.focus()
+  }
+
   addSelectionListener() {
     this.area.addEventListener('mouseup', () => {
       if (!window.getSelection) return
@@ -230,10 +283,6 @@ export default class Editor {
     }
 
     return span.outerHTML
-  }
-
-  alignSelection(val) {
-    this.selectionParagraphNode.style.textAlign = val
   }
 
   indentSelection(val) {

@@ -2,6 +2,7 @@ export default class Modal {
   constructor() {
     this.modal = document.createElement('div')
     this.overlay = document.createElement('div')
+    this.selection = window.getSelection()
   }
 
   get selectionSpanNode() {
@@ -23,13 +24,11 @@ export default class Modal {
   }
 
   restoreSelection() {
-    const sel = window.getSelection()
-
     this.area.focus()
 
     if (window.getSelection) {
-      sel.removeAllRanges()
-      sel.addRange(this.range)
+      this.selection.removeAllRanges()
+      this.selection.addRange(this.range)
     } else if (document.selection && this.range.select) {
       this.range.select()
     }
@@ -38,5 +37,6 @@ export default class Modal {
   destroy() {
     this.modal.parentNode.removeChild(this.modal)
     this.overlay.parentNode.removeChild(this.overlay)
+    this.selection.removeAllRanges()
   }
 }

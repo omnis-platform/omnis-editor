@@ -2,6 +2,9 @@
   position relative
   width 100%
   background #fff
+  border 1px solid rgba(6, 196, 191, 0.28)
+  border-radius 8px
+  box-shadow 1px 1px 16px 3px rgba(128, 128, 128, 0.13)
 
   &--full
     position fixed
@@ -22,9 +25,8 @@
 
   &__a
     width calc(100% - 30px)
-    height 40vh
+    height 50vh
     padding 12px 15px
-    border 1px solid #06c4bf
     overflow scroll
 
     &:focus
@@ -47,14 +49,67 @@
     position relative
     width calc(100% - 30px)
     padding 12px 15px
-    background #f7f8fb
-    border 1px solid #06c4bf
-    border-bottom 0
+    background-color #fff
+    border-bottom 1px solid #e2e2e2
+    box-shadow 0px 6px 7px 1px rgba(6, 196, 191, 0.05)
     display flex
     flex-wrap wrap
+    z-index 10
 
-    &__item
-      padding-right 12px
+    &__ctrl-item
+      position relative
+      min-width 32px
+      height 32px
+      margin: 0 4px 4px 0
+      background-size 75%
+      background-position center
+      background-repeat no-repeat
+      cursor pointer
+      border 0
+      outline 0
+
+      &--select
+        padding 0
+
+      &--active
+        background-color #f7f8fb
+        box-shadow 1px 1px 8px 1px rgba(6, 196, 191, 0.2)
+
+      &:hover
+        background-color #f7f8fb
+        box-shadow 1px 1px 8px 1px rgba(6, 196, 191, 0.2)
+
+        &::after
+          display table
+
+      &::after
+        content attr(data-content)
+        position absolute
+        width fit-content
+        left 50%
+        transform translate(-50%, 0)
+        bottom -26px
+        padding 4px 6px
+        border-radius 4px
+        background #000000
+        color #ffffff
+        font-size 8px
+        font-family Arial
+        text-align center
+        white-space pre
+        z-index 2
+        display none
+
+      &__fontName  
+      &__fontSize
+        border 1px solid #e2e2e2
+        border-radius 4px
+
+      &__fontName
+        width 160px
+
+      &__fontSize
+        width 60px
 
   &__d
     position absolute
@@ -110,4 +165,128 @@
       padding 4px 5px
       list-style none
       cursor pointer
-  
+
+  &__select
+    position relative
+    min-width 32px
+    height 32px    
+    margin: 0 4px 4px 0
+    cursor pointer
+    border 0
+    outline 0
+
+    &__o
+      position absolute
+      width 100%
+      height 100%
+      top 0
+      left 0
+      z-index 1
+    
+    &__do
+      position relative
+      width 100%
+      height 100%  
+      background-size 75%
+      background-position center
+      background-repeat no-repeat
+      pointer-events none
+      z-index 4
+
+      &--fontName
+      &--fontSize
+        width calc(100% - 20px)
+        padding 6px 10px
+        font-size 14px
+        text-align left
+      
+    &__opts
+      position absolute
+      max-height 240px
+      left -3px
+      top 40px
+      padding 12px 10px
+      flex-flow row wrap
+      background #fff
+      border 1px solid rgba(6, 196, 191, 0.28)
+      border-radius 8px
+      border-top-left-radius 0
+      box-shadow 1px 1px 16px 3px rgba(128, 128, 128, 0.13)
+      z-index 3
+      display none
+
+      &--active
+        display flex
+
+      &::before
+        content ''
+        position absolute
+        width 36px
+        height 43px
+        top -44px
+        left -1px
+        background-color #fff
+        border-top 1px solid rgba(6, 196, 191, 0.28)
+        border-left 1px solid rgba(6, 196, 191, 0.28)
+        border-right 1px solid rgba(6, 196, 191, 0.28)
+        border-top-left-radius 8px
+        border-top-right-radius 8px
+
+      &__container 
+        width 100%
+        max-height 120px
+        overflow-y auto
+        overflow-x hidden
+
+      &--hiliteColor
+      &--foreColor
+        width 196px
+
+      &--textAlign
+        width 28px
+        padding 4px
+        border-top-right-radius 0
+      
+      &--fontName
+        width 145px
+        border-top-right-radius 0
+
+        &::before
+          width 165px
+      
+      &--fontSize
+        width 45px
+        border-top-right-radius 0
+
+        &::before
+          width 65px
+
+    &__opt
+      &--hiliteColor
+      &--foreColor
+        width 28px
+        height 28px
+        background-position center
+        background-size 80%
+
+        &:hover
+          outline-offset -1px
+          outline 1px solid #000
+
+      &--textAlign
+        width 28px
+        height 28px
+        background-position center
+        background-repeat no-repeat
+        background-size 80%
+      
+      &--fontName
+      &--fontSize
+        width 100%
+        text-align left
+        padding 6px 4px
+        font-size 14px
+
+        &:hover
+          background-color #f7f8fb
+      

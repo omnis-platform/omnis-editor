@@ -8,6 +8,7 @@ export default class OmnisEditor extends Editor {
     this.selector = props.selector
     this.labelText = props.label
     this.defaultValue = props.value
+    this.iconBase = EditorConfig.icon.base
 
     this.label = document.createElement('h3')
     this.section = document.createElement('section')
@@ -43,6 +44,7 @@ export default class OmnisEditor extends Editor {
     this.addSelectionListener()
     this.addCtrlListener()
     this.setSelection()
+    this.elementCloseListener()
   }
 
   insertComponents() {
@@ -72,40 +74,164 @@ export default class OmnisEditor extends Editor {
     ctrls.className = 'om-s__c__item'
 
     this.conf.controls.forEach((c, index) => {
-      const ctrl = document.createElement(c.type)
-      ctrl.id = `ctrl_${index}`
-      ctrl.className = 'om-s__c__ctrl-item'
-      ctrl.innerHTML = c.name
-      ctrl.dataset.type = c.type
-      ctrl.dataset.ctrlStyle = c.style
-
       if (c.type === 'select') {
-        c.options.forEach(o => {
-          const opt = document.createElement('option')
-          opt.text = o
-          opt.value = c.style === 'fontSize' ? `${o}pt` : o
-          
-          ctrl.add(opt)
-        })
+        this.createCtrlSelect(c, index)
       } else {
-        ctrl.dataset.ctrlValue = c.value
+        this.creteCtrlButton(c, index)
       }
+    })
+  }
 
-      this.controls.appendChild(ctrl)
+  creteCtrlButton(c, index) {
+    const ctrl = document.createElement('button')
+
+    ctrl.id = `ctrl_${index}`
+    ctrl.className = 'om-s__c__ctrl-item om-s__c__ctrl-item--button'
+    ctrl.dataset.content = c.name
+    ctrl.dataset.type = c.type
+    ctrl.dataset.ctrlStyle = c.style
+    ctrl.style.backgroundImage = `url(${this.iconBase + c.icon})`
+    ctrl.dataset.ctrlValue = c.value
+
+    this.controls.appendChild(ctrl)
+  }
+
+  createCtrlSelect(c, index) {
+    const ctrl = document.createElement('button')
+    const option = document.createElement('div')
+    const wrap = document.createElement('div')
+
+    ctrl.id = `ctrl_${index}`
+    ctrl.className = `om-s__c__ctrl-item om-s__c__ctrl-item--select om-s__c__ctrl-item__${c.style}`
+    ctrl.dataset.content = c.name
+    ctrl.dataset.type = c.type
+    ctrl.dataset.ctrlStyle = c.style
+
+    wrap.className = `om-s__select__opts om-s__select__opts--${c.style}`
+    option.className = `om-s__select__do om-s__select__do--${c.style}`
+    option.style.backgroundImage = `url(${this.iconBase + c.icon})`
+
+    switch(c.style) {
+      case 'foreColor':
+        this.createColorDropDown(c, index, wrap)
+        break
+      case 'hiliteColor':
+        this.createColorDropDown(c, index, wrap)
+        break
+      case 'textAlign':
+        this.createTextAlignDropDown(c, index, wrap)
+        break
+      case 'fontName':
+        this.createFontNameDropDown(c, index, option, wrap)
+        break
+      case 'fontSize':
+        this.createFontSizeDropDown(c, index, option, wrap)
+        break
+    }
+
+    ctrl.appendChild(option)
+    ctrl.appendChild(wrap)
+
+    this.controls.appendChild(ctrl)
+  }
+
+  createColorDropDown(ctrl, index, wrap) {
+    ctrl.options.forEach(o => {
+      const opt = document.createElement('div')
+      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.dataset.type = 'button'
+      opt.dataset.parentId = `ctrl_${index}`
+      opt.dataset.ctrlStyle = ctrl.style
+      opt.dataset.ctrlValue = o
+      opt.style.backgroundColor = o
+
+      if (o === 'REMOVE') opt.style.backgroundImage = `url(${this.iconBase + this.conf.icon.removeIcon})`
+
+      wrap.appendChild(opt)
+    })
+  }
+
+  createFontNameDropDown(ctrl, index, option, wrap) {
+    const container = document.createElement('div')
+    container.className = 'om-s__select__opts__container'
+    option.innerHTML = ctrl.options[0]
+    option.style.backgroundImage = ''
+
+    ctrl.options.forEach(o => {
+      const opt = document.createElement('div')
+      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.dataset.type = 'button'
+      opt.dataset.parentId = `ctrl_${index}`
+      opt.dataset.ctrlStyle = ctrl.style
+      opt.dataset.ctrlValue = o
+      opt.innerHTML = o
+      opt.style.fontFamily = o
+
+      container.appendChild(opt)
+    })
+
+    wrap.appendChild(container)
+  }
+
+  createFontSizeDropDown(ctrl, index, option, wrap) {
+    const container = document.createElement('div')
+    container.className = 'om-s__select__opts__container'
+    option.innerHTML = ctrl.options[0]
+    option.style.backgroundImage = ''
+
+    ctrl.options.forEach(o => {
+      const opt = document.createElement('div')
+      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.dataset.type = 'button'
+      opt.dataset.parentId = `ctrl_${index}`
+      opt.dataset.ctrlStyle = ctrl.style
+      opt.dataset.ctrlValue = `${o}pt`
+      opt.innerHTML = `${o}pt`
+      opt.style.fontFamily = o
+
+      container.appendChild(opt)
+    })
+
+    wrap.appendChild(container)
+  }
+
+  createTextAlignDropDown(ctrl, index, wrap) {
+    ctrl.options.forEach(o => {
+      const opt = document.createElement('div')
+      opt.className = `om-s__select__opt--${ctrl.style}`
+      opt.dataset.type = 'button'
+      opt.dataset.parentId = `ctrl_${index}`
+      opt.dataset.ctrlStyle = ctrl.style
+      opt.dataset.ctrlValue = o
+      opt.style.backgroundImage = `url(${this.iconBase + o}.svg)`
+
+      wrap.appendChild(opt)
     })
   }
 
   insertServiceButton() {
-    const btns = ['undo', 'redo', 'full', 'showHtml']
+    const btns = ['undo', 'redo', 'fullScreen', 'showHtml']
 
     btns.forEach(btn => {
       const button = document.createElement('button')
-      button.className = 'om-s__c__ctrl-item'
-      button.innerHTML = btn.split(/(?=[A-Z])/).join(' ')
+      button.className = 'om-s__c__ctrl-item om-s__c__ctrl-item--button'
       button.dataset.ctrlBtn = true
       button.dataset.ctrlFor = btn
+      button.dataset.content = btn.split(/(?=[A-Z])/).join(' ')
+      button.style.backgroundImage = `url(${this.iconBase + btn}.svg)`
 
       this.controls.appendChild(button)
+    })
+  }
+
+  elementCloseListener() {
+    const classList = ['om-s__select__opts']
+
+    this.area.addEventListener('click', () => {
+      classList.forEach(c => {
+        const el = document.querySelector(`.${c}--active`)
+        if (el) el.classList.remove(`${c}--active`)
+      })
     })
   }
 }

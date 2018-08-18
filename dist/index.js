@@ -45,6 +45,7 @@ var OmnisEditor = function (_Editor) {
     _this.selector = props.selector;
     _this.labelText = props.label;
     _this.defaultValue = props.value;
+    _this.iconBase = _editorConfig2.default.icon.base;
 
     _this.label = document.createElement('h3');
     _this.section = document.createElement('section');
@@ -83,6 +84,7 @@ var OmnisEditor = function (_Editor) {
       this.addSelectionListener();
       this.addCtrlListener();
       this.setSelection();
+      this.elementCloseListener();
     }
   }, {
     key: 'insertComponents',
@@ -116,43 +118,178 @@ var OmnisEditor = function (_Editor) {
       ctrls.className = 'om-s__c__item';
 
       this.conf.controls.forEach(function (c, index) {
-        var ctrl = document.createElement(c.type);
-        ctrl.id = 'ctrl_' + index;
-        ctrl.className = 'om-s__c__ctrl-item';
-        ctrl.innerHTML = c.name;
-        ctrl.dataset.type = c.type;
-        ctrl.dataset.ctrlStyle = c.style;
-
         if (c.type === 'select') {
-          c.options.forEach(function (o) {
-            var opt = document.createElement('option');
-            opt.text = o;
-            opt.value = c.style === 'fontSize' ? o + 'pt' : o;
-
-            ctrl.add(opt);
-          });
+          _this2.createCtrlSelect(c, index);
         } else {
-          ctrl.dataset.ctrlValue = c.value;
+          _this2.creteCtrlButton(c, index);
         }
+      });
+    }
+  }, {
+    key: 'creteCtrlButton',
+    value: function creteCtrlButton(c, index) {
+      var ctrl = document.createElement('button');
 
-        _this2.controls.appendChild(ctrl);
+      ctrl.id = 'ctrl_' + index;
+      ctrl.className = 'om-s__c__ctrl-item om-s__c__ctrl-item--button';
+      ctrl.dataset.content = c.name;
+      ctrl.dataset.type = c.type;
+      ctrl.dataset.ctrlStyle = c.style;
+      ctrl.style.backgroundImage = 'url(' + (this.iconBase + c.icon) + ')';
+      ctrl.dataset.ctrlValue = c.value;
+
+      this.controls.appendChild(ctrl);
+    }
+  }, {
+    key: 'createCtrlSelect',
+    value: function createCtrlSelect(c, index) {
+      var ctrl = document.createElement('button');
+      var option = document.createElement('div');
+      var wrap = document.createElement('div');
+
+      ctrl.id = 'ctrl_' + index;
+      ctrl.className = 'om-s__c__ctrl-item om-s__c__ctrl-item--select om-s__c__ctrl-item__' + c.style;
+      ctrl.dataset.content = c.name;
+      ctrl.dataset.type = c.type;
+      ctrl.dataset.ctrlStyle = c.style;
+
+      wrap.className = 'om-s__select__opts om-s__select__opts--' + c.style;
+      option.className = 'om-s__select__do om-s__select__do--' + c.style;
+      option.style.backgroundImage = 'url(' + (this.iconBase + c.icon) + ')';
+
+      switch (c.style) {
+        case 'foreColor':
+          this.createColorDropDown(c, index, wrap);
+          break;
+        case 'hiliteColor':
+          this.createColorDropDown(c, index, wrap);
+          break;
+        case 'textAlign':
+          this.createTextAlignDropDown(c, index, wrap);
+          break;
+        case 'fontName':
+          this.createFontNameDropDown(c, index, option, wrap);
+          break;
+        case 'fontSize':
+          this.createFontSizeDropDown(c, index, option, wrap);
+          break;
+      }
+
+      ctrl.appendChild(option);
+      ctrl.appendChild(wrap);
+
+      this.controls.appendChild(ctrl);
+    }
+  }, {
+    key: 'createColorDropDown',
+    value: function createColorDropDown(ctrl, index, wrap) {
+      var _this3 = this;
+
+      ctrl.options.forEach(function (o) {
+        var opt = document.createElement('div');
+        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.dataset.type = 'button';
+        opt.dataset.parentId = 'ctrl_' + index;
+        opt.dataset.ctrlStyle = ctrl.style;
+        opt.dataset.ctrlValue = o;
+        opt.style.backgroundColor = o;
+
+        if (o === 'REMOVE') opt.style.backgroundImage = 'url(' + (_this3.iconBase + _this3.conf.icon.removeIcon) + ')';
+
+        wrap.appendChild(opt);
+      });
+    }
+  }, {
+    key: 'createFontNameDropDown',
+    value: function createFontNameDropDown(ctrl, index, option, wrap) {
+      var container = document.createElement('div');
+      container.className = 'om-s__select__opts__container';
+      option.innerHTML = ctrl.options[0];
+      option.style.backgroundImage = '';
+
+      ctrl.options.forEach(function (o) {
+        var opt = document.createElement('div');
+        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.dataset.type = 'button';
+        opt.dataset.parentId = 'ctrl_' + index;
+        opt.dataset.ctrlStyle = ctrl.style;
+        opt.dataset.ctrlValue = o;
+        opt.innerHTML = o;
+        opt.style.fontFamily = o;
+
+        container.appendChild(opt);
+      });
+
+      wrap.appendChild(container);
+    }
+  }, {
+    key: 'createFontSizeDropDown',
+    value: function createFontSizeDropDown(ctrl, index, option, wrap) {
+      var container = document.createElement('div');
+      container.className = 'om-s__select__opts__container';
+      option.innerHTML = ctrl.options[0];
+      option.style.backgroundImage = '';
+
+      ctrl.options.forEach(function (o) {
+        var opt = document.createElement('div');
+        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.dataset.type = 'button';
+        opt.dataset.parentId = 'ctrl_' + index;
+        opt.dataset.ctrlStyle = ctrl.style;
+        opt.dataset.ctrlValue = o + 'pt';
+        opt.innerHTML = o + 'pt';
+        opt.style.fontFamily = o;
+
+        container.appendChild(opt);
+      });
+
+      wrap.appendChild(container);
+    }
+  }, {
+    key: 'createTextAlignDropDown',
+    value: function createTextAlignDropDown(ctrl, index, wrap) {
+      var _this4 = this;
+
+      ctrl.options.forEach(function (o) {
+        var opt = document.createElement('div');
+        opt.className = 'om-s__select__opt--' + ctrl.style;
+        opt.dataset.type = 'button';
+        opt.dataset.parentId = 'ctrl_' + index;
+        opt.dataset.ctrlStyle = ctrl.style;
+        opt.dataset.ctrlValue = o;
+        opt.style.backgroundImage = 'url(' + (_this4.iconBase + o) + '.svg)';
+
+        wrap.appendChild(opt);
       });
     }
   }, {
     key: 'insertServiceButton',
     value: function insertServiceButton() {
-      var _this3 = this;
+      var _this5 = this;
 
-      var btns = ['undo', 'redo', 'full', 'showHtml'];
+      var btns = ['undo', 'redo', 'fullScreen', 'showHtml'];
 
       btns.forEach(function (btn) {
         var button = document.createElement('button');
-        button.className = 'om-s__c__ctrl-item';
-        button.innerHTML = btn.split(/(?=[A-Z])/).join(' ');
+        button.className = 'om-s__c__ctrl-item om-s__c__ctrl-item--button';
         button.dataset.ctrlBtn = true;
         button.dataset.ctrlFor = btn;
+        button.dataset.content = btn.split(/(?=[A-Z])/).join(' ');
+        button.style.backgroundImage = 'url(' + (_this5.iconBase + btn) + '.svg)';
 
-        _this3.controls.appendChild(button);
+        _this5.controls.appendChild(button);
+      });
+    }
+  }, {
+    key: 'elementCloseListener',
+    value: function elementCloseListener() {
+      var classList = ['om-s__select__opts'];
+
+      this.area.addEventListener('click', function () {
+        classList.forEach(function (c) {
+          var el = document.querySelector('.' + c + '--active');
+          if (el) el.classList.remove(c + '--active');
+        });
       });
     }
   }]);

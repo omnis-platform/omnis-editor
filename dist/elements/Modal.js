@@ -20,6 +20,7 @@ var Modal = function () {
 
     this.modal = document.createElement('div');
     this.overlay = document.createElement('div');
+    this.selection = window.getSelection();
   }
 
   (0, _createClass3.default)(Modal, [{
@@ -40,13 +41,11 @@ var Modal = function () {
   }, {
     key: 'restoreSelection',
     value: function restoreSelection() {
-      var sel = window.getSelection();
-
       this.area.focus();
 
       if (window.getSelection) {
-        sel.removeAllRanges();
-        sel.addRange(this.range);
+        this.selection.removeAllRanges();
+        this.selection.addRange(this.range);
       } else if (document.selection && this.range.select) {
         this.range.select();
       }
@@ -56,6 +55,7 @@ var Modal = function () {
     value: function destroy() {
       this.modal.parentNode.removeChild(this.modal);
       this.overlay.parentNode.removeChild(this.overlay);
+      this.selection.removeAllRanges();
     }
   }, {
     key: 'selectionSpanNode',
