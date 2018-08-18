@@ -227,7 +227,7 @@ var OmnisEditor = function (_Editor) {
     value: function createFontSizeDropDown(ctrl, index, option, wrap) {
       var container = document.createElement('div');
       container.className = 'om-s__select__opts__container';
-      option.innerHTML = ctrl.options[0];
+      option.innerHTML = ctrl.options[0] + 'pt';
       option.style.backgroundImage = '';
 
       ctrl.options.forEach(function (o) {

@@ -11,7 +11,8 @@
     "fontFamily", 
     "fontSize", 
     "color", 
-    "backgroundColor"
+    "backgroundColor",
+    "textDecorationLine"
   ],
   "controls": [
     {

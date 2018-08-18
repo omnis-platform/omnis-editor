@@ -176,7 +176,7 @@ export default class OmnisEditor extends Editor {
   createFontSizeDropDown(ctrl, index, option, wrap) {
     const container = document.createElement('div')
     container.className = 'om-s__select__opts__container'
-    option.innerHTML = ctrl.options[0]
+    option.innerHTML = `${ctrl.options[0]}pt`
     option.style.backgroundImage = ''
 
     ctrl.options.forEach(o => {

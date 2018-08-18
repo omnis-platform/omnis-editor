@@ -146,12 +146,15 @@ export default class Editor {
   }
 
   displayHtml() {
+    const btn = document.querySelector('[data-ctrl-for="showHtml"]')
     let content = this.html
 
     if (this.htmlMode) {
+      btn.dataset.content = 'show html'
       content = content.replace(/&lt;/g, '<')
       content = content.replace(/&gt;/g, '>')
     } else {
+      btn.dataset.content = 'hide html'
       content = content.replace(/</g, '&lt;')
       content = content.replace(/>/g, '&gt;')
     }
@@ -161,9 +164,15 @@ export default class Editor {
   }
 
   setSectionFullSize() {
+    const btn = document.querySelector('[data-ctrl-for="fullScreen"]')
+
     if (this.isFullSize) {
+      btn.dataset.content = 'full Screen'
+      btn.style.backgroundImage = `url(${this.iconBase}/controls/fullScreen.svg)`
       this.section.classList.remove('om-s--full')
     } else {
+      btn.dataset.content = 'Exit full Screen'
+      btn.style.backgroundImage = `url(${this.iconBase}/controls/fullScreenExit.svg)`
       this.section.classList.add('om-s--full')
     }
 
@@ -253,6 +262,8 @@ export default class Editor {
     const displayOpt = select.querySelector('.om-s__select__do')
     const optionsWrap = select.querySelector('.om-s__select__opts--active')
     const el = this.wrapSelection()
+
+    console.log(el)
 
     displayOpt.innerHTML = target.dataset.ctrlValue
     optionsWrap.classList.remove('om-s__select__opts--active')
